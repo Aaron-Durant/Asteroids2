@@ -19,9 +19,9 @@ namespace Uba_Engine
 
         internal int currentFrame = 0;
 
-        Sprite ownerSprite;
+        StaticSprite ownerSprite;
 
-        public Frame(Sprite owner)
+        public Frame(StaticSprite owner)
         {
             ownerSprite = owner;
         }

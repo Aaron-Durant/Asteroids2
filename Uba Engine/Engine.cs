@@ -23,6 +23,10 @@ namespace Uba_Engine
         /// </summary>
         List<Sprite> spriteList;
         /// <summary>
+        /// A list of all curently active staticSprites
+        /// </summary>
+        private List<StaticSprite> staticSpriteList; 
+        /// <summary>
         /// The current update rate of the engine
         /// </summary>
         float updateRate = 0.0f;
@@ -47,6 +51,7 @@ namespace Uba_Engine
             spriteBatch = new SpriteBatch(GraphicsDeviceService.GraphicsDevice);
             this.eventM = eventM;
             spriteList = new List<Sprite>();
+            staticSpriteList = new List<StaticSprite>();
         }
 
         public void setScreen(int width, int height)
@@ -87,6 +92,11 @@ namespace Uba_Engine
             s.owner = this;
         }
 
+        public void AddStaticSprite(StaticSprite s)
+        {
+            staticSpriteList.Add(s);
+        }
+
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
@@ -96,6 +106,11 @@ namespace Uba_Engine
                 {
                     spriteBatch.Draw(s.frame.textures[s.frame.currentFrame], s.position, s.frame.rectangles[s.frame.currentFrame], s.color);
                 }
+            }
+
+            foreach (StaticSprite staticSprite in staticSpriteList )
+            {
+                spriteBatch.Draw(staticSprite.frame.textures[staticSprite.frame.currentFrame], staticSprite.getPostition, staticSprite.frame.rectangles[staticSprite.frame.currentFrame], staticSprite.color);
             }
             spriteBatch.End();
 
@@ -109,6 +124,7 @@ namespace Uba_Engine
 
         public void clearAllAssets()
         {
+            staticSpriteList.Clear();
             spriteList.Clear();
         }
 

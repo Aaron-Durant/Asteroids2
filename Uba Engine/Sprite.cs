@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Uba_Engine
 {
 
-    public class Sprite
+    public class Sprite : StaticSprite
     {
         /// <summary>
         /// Vector2s holding position, velocity and acceleration for each Sprite
@@ -21,18 +21,7 @@ namespace Uba_Engine
         public Vector2 velocity;
         public Vector2 acceleration;
         public Vector2 changeInAcceleration;
-        /// <summary>
-        /// Holds the current size of the Sprite
-        /// </summary>
-        public Rectangle size;
-        /// <summary>
-        /// The frame holding the textures for the Sprite
-        /// </summary>
-        public Frame frame;
-        /// <summary>
-        /// Color for the Sprite
-        /// </summary>
-        public Color color = Color.White;
+
         /// <summary>
         /// Is the sprite visible
         /// </summary>
@@ -40,7 +29,7 @@ namespace Uba_Engine
         /// <summary>
         /// Delegates to call on Sprite update
         /// </summary>
-        public spriteUpdate onUpdate { get; set;}
+        public spriteUpdate onUpdate { get; set; }
         /// <summary>
         /// Holds a Rectangle representing the limit box of the Sprite
         /// </summary>
@@ -57,9 +46,8 @@ namespace Uba_Engine
         /// <summary>
         /// Constructorfor the Sprite. Creates new frame and sets update delegates
         /// </summary>
-        public Sprite()
+        public Sprite() : base(new Vector2(0, 0))
         {
-            position = new Vector2(0, 0);
             velocity = new Vector2(0, 0);
             acceleration = new Vector2(0, 0);
             changeInAcceleration = new Vector2(0, 0);
@@ -67,8 +55,6 @@ namespace Uba_Engine
             onUpdate = updatePostition;
             onUpdate += updateVelocity;
             onUpdate += updateAcceleration;
-
-            frame = new Frame(this);
         }
 
         /// <summary>
