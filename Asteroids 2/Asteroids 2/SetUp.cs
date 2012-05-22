@@ -23,7 +23,6 @@ namespace Asteroids_2
             engine.clearAllAssets();
             gameState = GameState.initializing;
 
-            // Add SetupTask e.g. setupM.addSetupTask(setupDelegate);
 
             setupM.start();
         }

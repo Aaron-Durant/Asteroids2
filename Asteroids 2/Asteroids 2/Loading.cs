@@ -21,9 +21,9 @@ namespace Asteroids_2
             {
                 loadM.CollectedFirst();
                 GFX.txSplashScreen = (Texture2D)loadM.getLoadedAsset(0);
-                Sprite splashSprite = new Sprite();
+                StaticSprite splashSprite = new StaticSprite(new Vector2(0, 0));
                 splashSprite.frame.define(GFX.txSplashScreen, new Rectangle(0, 0, 1280, 720));
-                engine.addSprite(splashSprite);
+                engine.AddStaticSprite(splashSprite);
             }
 
             if (loadM.loadComplete)
