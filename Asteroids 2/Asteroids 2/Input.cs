@@ -21,7 +21,16 @@ namespace Asteroids_2
                 case GameState.initializing:
                     if (g.setupM.setupComplete)
                     {
-                        if (inputM.buttonPressed(1, Buttons.A) || inputM.buttonPressed(1, Buttons.Start)) g.engine.newState = g.mainMenu;
+                        for (int i = 1; i < 5; i++)
+                        {
+                            if (inputM.buttonPressed(i, Buttons.A) || inputM.buttonPressed(i, Buttons.Start))
+                            {
+                                g.engine.newState = g.mainMenu;
+                                g.MasterController = i;
+                            }
+                        }
+                        if (inputM.keyPressed(Keys.Enter))
+                            g.engine.newState = g.mainMenu;
                     }
                     break;
                 case GameState.title:

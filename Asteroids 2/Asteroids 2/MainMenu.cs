@@ -16,6 +16,8 @@ namespace Asteroids_2
     public partial class Game1
     {
         public Sprite s;
+        public int MasterController = 1;
+
 
         public void mainMenu()
         {
