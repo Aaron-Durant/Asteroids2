@@ -20,9 +20,9 @@ namespace Asteroids_2
         /// </summary>
         public void setUp()
         {
-            engine.clearAllAssets();
             gameState = GameState.initializing;
 
+            // Add setup tasks here
 
             setupM.start();
         }
@@ -33,7 +33,11 @@ namespace Asteroids_2
         /// </summary>
         public void settingUp()
         {
-            if (setupM.setupComplete) engine.newState = mainMenu;
+            if (setupM.setupComplete)
+            {
+                engine.clearAllAssets();
+                textM.AddText(new Text(GFX.sfTitle, "ASTEROIDS", new Vector2(screenSize.Center.X, screenSize.Center.Y), Color.White, Align.center));
+            }
         }
 
 

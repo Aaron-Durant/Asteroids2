@@ -33,6 +33,7 @@ namespace Asteroids_2
 
                 // copy loaded assets to fonts
                 GFX.sfDebug = (SpriteFont) loadM.getLoadedAsset(2); // Get Asset 2
+                GFX.sfTitle = (SpriteFont) loadM.getLoadedAsset(3); // Get Asset 3
 
                 //change to new state
                 engine.newState = setUp;

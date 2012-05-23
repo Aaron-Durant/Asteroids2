@@ -18,6 +18,12 @@ namespace Asteroids_2
 
             switch (g.gameState)
             {
+                case GameState.initializing:
+                    if (g.setupM.setupComplete)
+                    {
+                        if (inputM.buttonPressed(1, Buttons.A) || inputM.buttonPressed(1, Buttons.Start)) g.engine.newState = g.mainMenu;
+                    }
+                    break;
                 case GameState.title:
                     if (inputM.keyDown(Keys.Right) || inputM.buttonDown(1, Buttons.LeftThumbstickRight)) g.s.velocity.X += 5;
                     else if (inputM.keyDown(Keys.Left) || inputM.buttonDown(1, Buttons.LeftThumbstickLeft)) g.s.velocity.X += -5;

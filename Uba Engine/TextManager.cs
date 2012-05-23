@@ -46,12 +46,41 @@ namespace Uba_Engine
 
             foreach (Text text in Texts)
             {
-                spriteBatch.DrawString(text.Font, text.text, text.Position, text.TextColor);
+                Vector2 position = CalculatePosition(text);
+                spriteBatch.DrawString(text.Font, text.text, position, text.TextColor);
             }
 
             spriteBatch.End();
             ClearTexts();
  	        base.Draw(gameTime);
+        }
+
+        public Vector2 CalculatePosition(Text t)
+        {
+            switch (t.Alignment)
+            {
+                case Align.bottomLeft:
+                    return t.Position - new Vector2(0, t.Size.Y);
+                case Align.bottom:
+                    return t.Position - new Vector2(t.Size.X/2, t.Size.Y);
+                case Align.bottomRight:
+                    return t.Position - t.Size;
+                case Align.right:
+                    return t.Position - new Vector2(t.Size.X, t.Size.Y/2);
+                case Align.topRight:
+                    return t.Position - new Vector2(t.Size.X, 0);
+                case Align.top:
+                    return t.Position - new Vector2(t.Size.X/2, 0);
+                case Align.topLeft:
+                    return t.Position;
+                case Align.left:
+                    return t.Position - new Vector2(0, t.Size.Y/2);
+                case Align.center:
+                    return t.Position - (t.Size / 2);
+                default:
+                    return t.Position;
+
+            }
         }
 
         public void AddText(Text t)

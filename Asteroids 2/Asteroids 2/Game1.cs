@@ -118,6 +118,7 @@ namespace Asteroids_2
 
             // Add SpriteFonts to loadManager
             loadM.addFont("Fonts\\Debug"); // Asset 2
+            loadM.addFont("Fonts\\TitleFont"); // Asset 3
 
             // Start loadManager
             loadM.start(500);

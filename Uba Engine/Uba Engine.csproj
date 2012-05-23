@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Align.cs" />
     <Compile Include="Asset.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Direction.cs" />

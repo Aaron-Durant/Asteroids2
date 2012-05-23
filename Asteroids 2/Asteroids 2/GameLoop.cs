@@ -29,7 +29,7 @@ namespace Asteroids_2
                     settingUp();
                     break;
                 case GameState.title:
-                    Text t = new Text(GFX.sfDebug, "Updates: " + eventM.GameUPS + " Frames: " + eventM.GameFPS, new Vector2(50, 50), Color.White );
+                    Text t = new Text(GFX.sfDebug, "Updates: " + eventM.GameUPS + " Frames: " + eventM.GameFPS, new Vector2(50, 50), Color.White, Align.topLeft );
                     textM.AddText(t);
                     break;
 

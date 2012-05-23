@@ -24,5 +24,7 @@ namespace Asteroids_2
 
         //SpriteFonts
         public static SpriteFont sfDebug;
+        public static SpriteFont sfTitle;
+        public static SpriteFont sfMenu;
     }
 }
