@@ -103,5 +103,15 @@ namespace Uba_Engine
 
             base.Draw(gameTime);
         }
+
+        public float ValuePerSecond(float value)
+        {
+            return value/updatesPerSecond;
+        }
+
+        public Vector2 ValuePerSecond(Vector2 value)
+        {
+            return value/updatesPerSecond;
+        }
     }
 }

@@ -57,6 +57,8 @@
     <Compile Include="SetupManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="StaticSprite.cs" />
+    <Compile Include="Text.cs" />
+    <Compile Include="TextManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework">

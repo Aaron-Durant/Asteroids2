@@ -107,6 +107,8 @@
     <Compile Include="SetupManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="StaticSprite.cs" />
+    <Compile Include="Text.cs" />
+    <Compile Include="TextManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

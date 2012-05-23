@@ -52,36 +52,36 @@ namespace Uba_Engine
             acceleration = new Vector2(0, 0);
             changeInAcceleration = new Vector2(0, 0);
 
-            onUpdate = updatePostition;
-            onUpdate += updateVelocity;
-            onUpdate += updateAcceleration;
+            onUpdate = UpdatePostition;
+            onUpdate += UpdateVelocity;
+            onUpdate += UpdateAcceleration;
         }
 
         /// <summary>
         /// updates the position of the Sprite by adding its velocity
         /// </summary>
         /// <param name="s"></param>
-        static void updatePostition(Sprite s)
+        static void UpdatePostition(Sprite s)
         {
-            s.position += (s.velocity / s.owner.eventM.GameUPS);
+            s.position += s.owner.eventM.ValuePerSecond(s.velocity);
         }
 
         /// <summary>
         /// updates the velocity of the Sprite by adding acceleration
         /// </summary>
         /// <param name="s"></param>
-        static void updateVelocity(Sprite s)
+        static void UpdateVelocity(Sprite s)
         {
-            s.velocity += (s.acceleration / s.owner.eventM.GameUPS);
+            s.velocity += s.owner.eventM.ValuePerSecond(s.acceleration);
         }
 
         /// <summary>
         /// Updates the acceleration of the Sprite
         /// </summary>
         /// <param name="s"></param>
-        static void updateAcceleration(Sprite s)
+        static void UpdateAcceleration(Sprite s)
         {
-            s.acceleration += (s.changeInAcceleration / s.owner.eventM.GameUPS);
+            s.acceleration += s.owner.eventM.ValuePerSecond(s.changeInAcceleration);
         }
 
     }
