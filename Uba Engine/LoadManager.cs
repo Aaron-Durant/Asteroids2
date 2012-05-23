@@ -72,6 +72,11 @@ namespace Uba_Engine
             pendingList.Add(new Asset(filename, typeof(Texture2D)));
         }
 
+        public void addFont(string fontName)
+        {
+            pendingList.Add(new Asset(fontName, typeof(SpriteFont)));
+        }
+
         public object getLoadedAsset(int asset)
         {
             return loadedList[asset].loadedObject;
@@ -117,6 +122,19 @@ namespace Uba_Engine
                 catch 
                 {
                     Console.WriteLine("Error: file not found");
+                }
+            }
+            if (pendingList[loadedAssets].type == typeof(SpriteFont))
+            {
+                try
+                {
+                    pendingList[loadedAssets].loadedObject = game.Content.Load<SpriteFont>(pendingList[loadedAssets].filename);
+                    pendingList[loadedAssets].loadStatus = "loaded";
+                    loadedList.Add(pendingList[loadedAssets]);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Error: font not found");
                 }
             }
             loadedAssets++;
