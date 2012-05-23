@@ -76,7 +76,6 @@ namespace Uba_Engine
                 totalUpdateTime -= 1000;
                 updatesPerSecond = noOfUpdates;
                 noOfUpdates = 0;
-                Console.WriteLine("Updates: " + updatesPerSecond + " Frames: " + framesPerSecond);
             }
             totalUpdateTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             noOfUpdates++;

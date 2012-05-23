@@ -43,6 +43,10 @@ namespace Asteroids_2
         /// </summary>
         public EventManager eventM;
         /// <summary>
+        /// Holds the TextManager object
+        /// </summary>
+        public TextManager textM;
+        /// <summary>
         /// Rectangle holding the screen size
         /// </summary>
         public Rectangle screenSize = new Rectangle(0, 0, 1280, 720);
@@ -78,12 +82,15 @@ namespace Asteroids_2
             loadM = new LoadManager(this);
             // Initializes the setupManager object
             setupM = new SetupManager();
+            // Initializes the textManager object
+            textM = new TextManager(this);
             // Initializes the engine object
             engine = new Engine(this, eventM);
 
             Components.Add(inputM);
             Components.Add(eventM);
             Components.Add(loadM);
+            Components.Add(textM);
             Components.Add(engine);
 
             //// Set screen size 
@@ -105,11 +112,15 @@ namespace Asteroids_2
             gameState = GameState.loading;
             // TODO: use this.Content to load your game content here
 
-            // Add textures to loadManager (starts with asset 1)
+            // Add textures to loadManager
             loadM.addTexture("Graphics\\UbaGameStudioLogo"); // Asset 0
-            loadM.addTexture("Graphics\\SampleTexture"); // asset 1
+            loadM.addTexture("Graphics\\SampleTexture"); // Asset 1
+
+            // Add SpriteFonts to loadManager
+            loadM.addFont("Fonts\\Debug"); // Asset 2
+
             // Start loadManager
-            loadM.start(1000);
+            loadM.start(500);
         }
 
         /// <summary>
@@ -128,6 +139,7 @@ namespace Asteroids_2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             // Main Game loop
             gameLoop();
             base.Update(gameTime);

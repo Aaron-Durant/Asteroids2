@@ -21,5 +21,8 @@ namespace Asteroids_2
         // Textures
         public static Texture2D txSampleTexture;
         public static Texture2D txSplashScreen;
+
+        //SpriteFonts
+        public static SpriteFont sfDebug;
     }
 }

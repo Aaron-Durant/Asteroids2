@@ -31,6 +31,9 @@ namespace Asteroids_2
                 // copy loaded assets to texutes
                 GFX.txSampleTexture = (Texture2D)loadM.getLoadedAsset(1); // Get Asset 1
 
+                // copy loaded assets to fonts
+                GFX.sfDebug = (SpriteFont) loadM.getLoadedAsset(2); // Get Asset 2
+
                 //change to new state
                 engine.newState = setUp;
             }

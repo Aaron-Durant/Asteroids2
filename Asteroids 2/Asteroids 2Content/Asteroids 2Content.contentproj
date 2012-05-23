@@ -58,8 +58,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Fonts\Miramonte.spritefont">
-      <Name>Miramonte</Name>
+    <Compile Include="Fonts\Debug.spritefont">
+      <Name>Debug</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
