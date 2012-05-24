@@ -27,6 +27,14 @@ namespace Uba_Engine
         /// </summary>
         public bool visible = true;
         /// <summary>
+        /// Current Rotation of the Sprite
+        /// </summary>
+        public float Rotation = 0f;
+        /// <summary>
+        /// Current scale of the Sprite
+        /// </summary>
+        public Vector2 Scale = new Vector2(1, 1);
+        /// <summary>
         /// Delegates to call on Sprite update
         /// </summary>
         public SpriteUpdate onUpdate { get; set; }
@@ -87,6 +95,11 @@ namespace Uba_Engine
         public void InitialiseAnimator()
         {
             frame.Animator = new Animator(this);
+        }
+
+        public Vector2 GetRotationCenter()
+        {
+            return frame.GetCurrentSize()/2;
         }
     }
 }

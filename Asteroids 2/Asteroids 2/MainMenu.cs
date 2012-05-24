@@ -30,6 +30,7 @@ namespace Asteroids_2
             s.frame.Define(GFX.txSampleTexture, new Rectangle(643, 25, 637, 558));
             s.InitialiseAnimator();
             s.frame.Animator.AnimateByDistance(25);
+            s.Rotation = 1f;
             Limit.limitInitialize(s, Limit.wrap, screenSize);
         }
     }

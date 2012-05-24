@@ -105,7 +105,8 @@ namespace Uba_Engine
             {
                 if (s.visible)
                 {
-                    spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color);
+                    //spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color);
+                    spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color, s.Rotation, s.GetRotationCenter(), s.Scale, SpriteEffects.None, 0);
                 }
             }
 
