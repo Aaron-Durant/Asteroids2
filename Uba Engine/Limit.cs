@@ -14,7 +14,7 @@ namespace Uba_Engine
     
     public class Limit
     {
-        public static void limitInitialize(Sprite s, limitHit onLimit, Rectangle limitBox)
+        public static void limitInitialize(Sprite s, LimitHit onLimit, Rectangle limitBox)
         {
             s.onUpdate += checkLimit;
             s.limitBox = limitBox;
@@ -25,10 +25,10 @@ namespace Uba_Engine
         {
             if (s.onLimit == wrap)
             {
-                bool Top = (s.position.Y + s.size.Height) < (s.limitBox.Y);
+                bool Top = (s.position.Y + s.size.Y) < (s.limitBox.Y);
                 bool Bottom = (s.position.Y) > (s.limitBox.Y + s.limitBox.Height);
                 bool Right = (s.position.X) > s.limitBox.X + (s.limitBox.Width);
-                bool Left = (s.position.X + s.size.Width) < (s.limitBox.X);
+                bool Left = (s.position.X + s.size.X) < (s.limitBox.X);
 
                 if (Top) s.onLimit(new LimitObject(s, Direction.NORTH));
                 else if (Bottom) s.onLimit(new LimitObject(s, Direction.SOUTH));
@@ -38,7 +38,7 @@ namespace Uba_Engine
             else if (s.onLimit == bounce)
             {
                 bool Top = (s.position.Y) < (s.limitBox.Y);
-                bool Bottom = (s.position.Y + s.size.Height) > (s.limitBox.Y + s.limitBox.Height);
+                bool Bottom = (s.position.Y + s.size.Y) > (s.limitBox.Y + s.limitBox.Height);
                 bool Right = (s.position.X + s.size.X) > (s.limitBox.X + s.limitBox.Height);
                 bool Left = (s.position.X) < (s.limitBox.X);
 
@@ -54,13 +54,13 @@ namespace Uba_Engine
         public static void wrap(LimitObject limitObject)
         {
             if (limitObject.direction == Direction.NORTH)
-                limitObject.limitingSprite.position.Y += (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Height);
+                limitObject.limitingSprite.position.Y += (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Y);
             else if (limitObject.direction == Direction.SOUTH)
-                limitObject.limitingSprite.position.Y -= (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Height);
+                limitObject.limitingSprite.position.Y -= (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Y);
             else if (limitObject.direction == Direction.EASTH)
-                limitObject.limitingSprite.position.X -= (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.Width);
+                limitObject.limitingSprite.position.X -= (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.X);
             else if (limitObject.direction == Direction.WEST)
-                limitObject.limitingSprite.position.X += (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.Width);
+                limitObject.limitingSprite.position.X += (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.X);
         }
 
         public static void bounce(LimitObject limitObject)

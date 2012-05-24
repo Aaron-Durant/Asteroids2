@@ -29,7 +29,7 @@ namespace Uba_Engine
         /// <summary>
         /// Delegates to call on Sprite update
         /// </summary>
-        public spriteUpdate onUpdate { get; set; }
+        public SpriteUpdate onUpdate { get; set; }
         /// <summary>
         /// Holds a Rectangle representing the limit box of the Sprite
         /// </summary>
@@ -37,7 +37,7 @@ namespace Uba_Engine
         /// <summary>
         /// Holds the delegate called when sprite hits limit box
         /// </summary>
-        public limitHit onLimit;
+        public LimitHit onLimit;
         /// <summary>
         /// The engine that owns and draws the sprite
         /// </summary>
@@ -84,5 +84,9 @@ namespace Uba_Engine
             s.acceleration += s.owner.eventM.ValuePerSecond(s.changeInAcceleration);
         }
 
+        public void InitialiseAnimator()
+        {
+            frame.Animator = new Animator(this);
+        }
     }
 }

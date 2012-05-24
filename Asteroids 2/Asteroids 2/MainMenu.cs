@@ -26,7 +26,10 @@ namespace Asteroids_2
 
             s = new Sprite();
             engine.addSprite(s);
-            s.frame.define(GFX.txSampleTexture, new Rectangle(0, 15, 642, 558));
+            s.frame.Define(GFX.txSampleTexture, new Rectangle(0, 15, 642, 558));
+            s.frame.Define(GFX.txSampleTexture, new Rectangle(643, 25, 637, 558));
+            s.InitialiseAnimator();
+            s.frame.Animator.AnimateByDistance(25);
             Limit.limitInitialize(s, Limit.wrap, screenSize);
         }
     }

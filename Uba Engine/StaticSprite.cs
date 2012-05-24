@@ -28,7 +28,7 @@ namespace Uba_Engine
         /// <summary>
         /// Holds the current size of the Sprite
         /// </summary>
-        public Rectangle size;
+        public Vector2 size = new Vector2(0, 0);
         /// <summary>
         /// The frame holding the textures for the Sprite
         /// </summary>

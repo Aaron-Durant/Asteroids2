@@ -37,7 +37,7 @@ namespace Uba_Engine
         /// <summary>
         /// Holds a delegate to run when state is changed
         /// </summary>
-        public stateChanger newState = null;
+        public StateChanger newState = null;
         /// <summary>
         /// The EventManager associated with the engine
         /// </summary>
@@ -71,7 +71,7 @@ namespace Uba_Engine
 
             if (newState != null)
             {
-                stateChanger newGameState = newState;
+                StateChanger newGameState = newState;
                 newState = null;
                 newGameState();
             }
@@ -105,13 +105,13 @@ namespace Uba_Engine
             {
                 if (s.visible)
                 {
-                    spriteBatch.Draw(s.frame.textures[s.frame.currentFrame], s.position, s.frame.rectangles[s.frame.currentFrame], s.color);
+                    spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color);
                 }
             }
 
             foreach (StaticSprite staticSprite in staticSpriteList )
             {
-                spriteBatch.Draw(staticSprite.frame.textures[staticSprite.frame.currentFrame], staticSprite.getPostition, staticSprite.frame.rectangles[staticSprite.frame.currentFrame], staticSprite.color);
+                spriteBatch.Draw(staticSprite.frame.Textures[staticSprite.frame.CurrentFrame], staticSprite.getPostition, staticSprite.frame.Rectangles[staticSprite.frame.CurrentFrame], staticSprite.color);
             }
             spriteBatch.End();
 

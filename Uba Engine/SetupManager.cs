@@ -11,7 +11,7 @@ namespace Uba_Engine
         /// <summary>
         /// List of delagates to run when setting up
         /// </summary>
-        public setupDelegate onSetup;
+        public SetupDelegate onSetup;
         /// <summary>
         /// Is setup complete?
         /// </summary>
@@ -27,7 +27,7 @@ namespace Uba_Engine
         /// Adds a new setupTask to onUpdate
         /// </summary>
         /// <param name="setupTask"></param>
-        public void addSetupTask(setupDelegate setupTask)
+        public void addSetupTask(SetupDelegate setupTask)
         {
             onSetup += setupTask;
         }

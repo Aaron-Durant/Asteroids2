@@ -5,13 +5,15 @@ using System.Text;
 
 namespace Uba_Engine
 {
-    public delegate void spriteUpdate(Sprite s);
+    public delegate void SpriteUpdate(Sprite s);
 
-    public delegate void limitHit(LimitObject limitObject);
+    public delegate void LimitHit(LimitObject limitObject);
 
-    public delegate void stateChanger();
+    public delegate void StateChanger();
 
-    public delegate void setupDelegate();
+    public delegate void SetupDelegate();
 
-    public delegate void eventHandler();
+    public delegate void EventHandler();
+
+    public delegate void Animation();
 }

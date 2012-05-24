@@ -7,10 +7,10 @@ namespace Uba_Engine
 {
     public class Event
     {
-        eventHandler onEvent;
+        EventHandler onEvent;
         float delay;
 
-        public Event(eventHandler onEvent, float delay)
+        public Event(EventHandler onEvent, float delay)
         {
             this.onEvent = onEvent;
             this.delay = delay;

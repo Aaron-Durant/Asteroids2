@@ -22,7 +22,7 @@ namespace Asteroids_2
                 loadM.CollectedFirst();
                 GFX.txSplashScreen = (Texture2D)loadM.getLoadedAsset(0);
                 StaticSprite splashSprite = new StaticSprite(new Vector2(0, 0));
-                splashSprite.frame.define(GFX.txSplashScreen, new Rectangle(0, 0, 1280, 720));
+                splashSprite.frame.Define(GFX.txSplashScreen, new Rectangle(0, 0, 1280, 720));
                 engine.AddStaticSprite(splashSprite);
             }
 

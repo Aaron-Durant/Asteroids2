@@ -1,37 +1,60 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Uba_Engine
 {
     public class Frame
     {
-        public List<Texture2D> textures = new List<Texture2D>();
-        public List<Rectangle> rectangles = new List<Rectangle>();
+        /// <summary>
+        /// Holds all the texures and rectangles associated with the Sprite
+        /// </summary>
+        public List<Texture2D> Textures = new List<Texture2D>();
+        public List<Rectangle> Rectangles = new List<Rectangle>();
 
-        internal int currentFrame = 0;
+        /// <summary>
+        /// The current frame the animation is on and the total frames
+        /// </summary>
+        internal int CurrentFrame;
+        internal int TotalFrames;
 
         StaticSprite ownerSprite;
+
+        public Animator Animator;
 
         public Frame(StaticSprite owner)
         {
             ownerSprite = owner;
+            CurrentFrame = 0;
+            TotalFrames = 0;
         }
 
-        public void define(Texture2D texture, Rectangle position)
+
+        public void Define(Texture2D texture, Rectangle position)
         {
-            textures.Add(texture);
-            rectangles.Add(position);
-            ownerSprite.size = new Rectangle(0, 0, position.Width, position.Height);
+            Textures.Add(texture);
+            Rectangles.Add(position);
+            TotalFrames++;
+            ownerSprite.size = GetCurrentSize();
         }
+
+        public Vector2 GetCurrentSize()
+        {
+            Rectangle currentRectangle = Rectangles[CurrentFrame];
+            return new Vector2(currentRectangle.Width, currentRectangle.Height);
+        }
+
+        public void NextFrame()
+        {
+            CurrentFrame++;
+            if (CurrentFrame == TotalFrames) CurrentFrame = 0;
+        }
+
+        public void Update()
+        {
+
+        }
+
 
     }
 }
