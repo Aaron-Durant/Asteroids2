@@ -25,10 +25,10 @@ namespace Uba_Engine
         {
             if (s.onLimit == wrap)
             {
-                bool Top = (s.position.Y + s.size.Y) < (s.limitBox.Y);
-                bool Bottom = (s.position.Y) > (s.limitBox.Y + s.limitBox.Height);
-                bool Right = (s.position.X) > s.limitBox.X + (s.limitBox.Width);
-                bool Left = (s.position.X + s.size.X) < (s.limitBox.X);
+                bool Top = (s.LowerBound) < (s.limitBox.Y);
+                bool Bottom = (s.UpperBound) > (s.limitBox.Y + s.limitBox.Height);
+                bool Right = (s.LeftBound) > s.limitBox.X + (s.limitBox.Width);
+                bool Left = (s.RightBound) < (s.limitBox.X);
 
                 if (Top) s.onLimit(new LimitObject(s, Direction.NORTH));
                 else if (Bottom) s.onLimit(new LimitObject(s, Direction.SOUTH));

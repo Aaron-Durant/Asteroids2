@@ -16,4 +16,6 @@ namespace Uba_Engine
     public delegate void EventHandler();
 
     public delegate void Animation();
+
+    public delegate void MenuItemSelect(Text text);
 }

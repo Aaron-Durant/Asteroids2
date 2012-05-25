@@ -23,6 +23,7 @@ namespace Asteroids_2
             gameState = GameState.initializing;
 
             // Add setup tasks here
+            setupM.addSetupTask(CreateMenus);
 
             setupM.start();
         }
@@ -38,6 +39,22 @@ namespace Asteroids_2
                 engine.clearAllAssets();
                 textM.AddText(new Text(GFX.sfTitle, "ASTEROIDS", new Vector2(screenSize.Center.X, screenSize.Center.Y), Color.White, Align.center));
             }
+        }
+
+        public void CreateMenus()
+        {
+            MainMenu();
+        }
+
+        public void MainMenu()
+        {
+            Menus.mainMenu = new Menu(new Vector2(200, 200), 300, false, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.topLeft);
+            Menus.mainMenu.OnSelect = Menus.SelectText;
+            Menus.mainMenu.OnDeselect = Menus.DeselectText;
+            Menus.mainMenu.AddMenuItem(new Text("Start"));
+            Menus.mainMenu.AddMenuItem(new Text("Do Nothing"));
+            Menus.mainMenu.WrapAtEnd = true;
+            menuM.AddMenu(Menus.mainMenu);
         }
 
 

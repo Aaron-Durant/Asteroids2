@@ -47,7 +47,7 @@ namespace Uba_Engine
             foreach (Text text in Texts)
             {
                 Vector2 position = CalculatePosition(text);
-                spriteBatch.DrawString(text.Font, text.text, position, text.TextColor);
+                spriteBatch.DrawString(text.Font, text.text, position, text.TextColor, 0f, new Vector2(), text.Scale, SpriteEffects.None, 0 );
             }
 
             spriteBatch.End();

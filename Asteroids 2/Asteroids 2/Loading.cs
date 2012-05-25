@@ -43,7 +43,5 @@ namespace Asteroids_2
             
 
         }
-
-        
     }
 }

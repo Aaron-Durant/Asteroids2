@@ -22,6 +22,11 @@ namespace Uba_Engine
         public Vector2 acceleration;
         public Vector2 changeInAcceleration;
 
+        public int UpperBound { get { return (int) (position.Y - size.Y/2); } }
+        public int LowerBound { get { return (int) (position.Y + size.Y/2); } }
+        public int RightBound { get { return (int) (position.X + size.X/2); } }
+        public int LeftBound  { get { return (int) (position.X - size.X/2); } }
+
         /// <summary>
         /// Is the sprite visible
         /// </summary>

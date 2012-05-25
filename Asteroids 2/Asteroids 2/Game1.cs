@@ -47,6 +47,10 @@ namespace Asteroids_2
         /// </summary>
         public TextManager textM;
         /// <summary>
+        /// Holds the MenuManager object;
+        /// </summary>
+        public MenuManager menuM;
+        /// <summary>
         /// Rectangle holding the screen size
         /// </summary>
         public Rectangle screenSize = new Rectangle(0, 0, 1280, 720);
@@ -84,6 +88,8 @@ namespace Asteroids_2
             setupM = new SetupManager();
             // Initializes the textManager object
             textM = new TextManager(this);
+            // Initializes the menuManager object
+            menuM = new MenuManager(this, textM);
             // Initializes the engine object
             engine = new Engine(this, eventM);
 
@@ -91,6 +97,7 @@ namespace Asteroids_2
             Components.Add(eventM);
             Components.Add(loadM);
             Components.Add(textM);
+            Components.Add(menuM);
             Components.Add(engine);
 
             //// Set screen size 
