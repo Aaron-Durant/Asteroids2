@@ -41,7 +41,7 @@ namespace Asteroids_2
                     else if (inputM.keyDown(Keys.Down) || inputM.buttonDown(1, Buttons.LeftThumbstickDown)) g.s.velocity.Y += 5;
                     //else g.s.velocity.Y = 0;
 
-                    if (inputM.buttonPressed(1, Buttons.A))
+                    if (inputM.buttonPressed(1, Buttons.A) || inputM.keyPressed(Keys.A))
                     {
                         g.s.position = new Vector2();
                         g.s.velocity = new Vector2();

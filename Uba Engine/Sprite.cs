@@ -29,7 +29,7 @@ namespace Uba_Engine
         /// <summary>
         /// Current Rotation of the Sprite
         /// </summary>
-        public float Rotation = 0f;
+        public float Rotation;
         /// <summary>
         /// Current scale of the Sprite
         /// </summary>
