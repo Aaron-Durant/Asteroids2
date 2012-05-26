@@ -101,7 +101,7 @@ namespace Asteroids_2
             Components.Add(engine);
 
             //// Set screen size 
-            engine.setScreen(screenSize.Width, screenSize.Height);
+            engine.SetScreen(screenSize.Width, screenSize.Height);
 
             
 
@@ -116,19 +116,19 @@ namespace Asteroids_2
         /// </summary>
         protected override void LoadContent()
         {
-            gameState = GameState.loading;
+            gameState = GameState.Loading;
             // TODO: use this.Content to load your game content here
 
             // Add textures to loadManager
-            loadM.addTexture("Graphics\\UbaGameStudioLogo"); // Asset 0
-            loadM.addTexture("Graphics\\SampleTexture"); // Asset 1
+            loadM.AddTexture("Graphics\\UbaGameStudioLogo"); // Asset 0
+            loadM.AddTexture("Graphics\\SampleTexture"); // Asset 1
 
             // Add SpriteFonts to loadManager
-            loadM.addFont("Fonts\\Debug"); // Asset 2
-            loadM.addFont("Fonts\\TitleFont"); // Asset 3
+            loadM.AddFont("Fonts\\Debug"); // Asset 2
+            loadM.AddFont("Fonts\\TitleFont"); // Asset 3
 
             // Start loadManager
-            loadM.start(500);
+            loadM.Start(500);
         }
 
         /// <summary>

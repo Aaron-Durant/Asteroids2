@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework;
 
 namespace Uba_Engine
 {
@@ -17,20 +8,23 @@ namespace Uba_Engine
         /// <summary>
         /// Vector2s holding position, velocity and acceleration for each Sprite
         /// </summary>
-        public Vector2 position;
-        public Vector2 velocity;
-        public Vector2 acceleration;
-        public Vector2 changeInAcceleration;
+        public Vector2 Position;
+        public Vector2 Velocity;
+        public Vector2 Acceleration;
+        public Vector2 ChangeInAcceleration;
 
-        public int UpperBound { get { return (int) (position.Y - size.Y/2); } }
-        public int LowerBound { get { return (int) (position.Y + size.Y/2); } }
-        public int RightBound { get { return (int) (position.X + size.X/2); } }
-        public int LeftBound  { get { return (int) (position.X - size.X/2); } }
+        /// <summary>
+        /// The extreme points of the Sprite
+        /// </summary>
+        public int UpperBound { get { return (int) (Position.Y - Size.Y/2); } }
+        public int LowerBound { get { return (int) (Position.Y + Size.Y/2); } }
+        public int RightBound { get { return (int) (Position.X + Size.X/2); } }
+        public int LeftBound  { get { return (int) (Position.X - Size.X/2); } }
 
         /// <summary>
         /// Is the sprite visible
         /// </summary>
-        public bool visible = true;
+        public bool Visible = true;
         /// <summary>
         /// Current Rotation of the Sprite
         /// </summary>
@@ -42,32 +36,32 @@ namespace Uba_Engine
         /// <summary>
         /// Delegates to call on Sprite update
         /// </summary>
-        public SpriteUpdate onUpdate { get; set; }
+        public SpriteUpdate OnUpdate { get; set; }
         /// <summary>
         /// Holds a Rectangle representing the limit box of the Sprite
         /// </summary>
-        public Rectangle limitBox;
+        public Rectangle LimitBox;
         /// <summary>
         /// Holds the delegate called when sprite hits limit box
         /// </summary>
-        public LimitHit onLimit;
+        public LimitHit OnLimit;
         /// <summary>
         /// The engine that owns and draws the sprite
         /// </summary>
-        public Engine owner;
+        public Engine Owner;
 
         /// <summary>
         /// Constructorfor the Sprite. Creates new frame and sets update delegates
         /// </summary>
         public Sprite() : base(new Vector2(0, 0))
         {
-            velocity = new Vector2(0, 0);
-            acceleration = new Vector2(0, 0);
-            changeInAcceleration = new Vector2(0, 0);
+            Velocity = new Vector2(0, 0);
+            Acceleration = new Vector2(0, 0);
+            ChangeInAcceleration = new Vector2(0, 0);
 
-            onUpdate = UpdatePostition;
-            onUpdate += UpdateVelocity;
-            onUpdate += UpdateAcceleration;
+            OnUpdate = UpdatePostition;
+            OnUpdate += UpdateVelocity;
+            OnUpdate += UpdateAcceleration;
         }
 
         /// <summary>
@@ -76,7 +70,7 @@ namespace Uba_Engine
         /// <param name="s"></param>
         static void UpdatePostition(Sprite s)
         {
-            s.position += s.owner.eventM.ValuePerSecond(s.velocity);
+            s.Position += s.Owner.EventM.ValuePerSecond(s.Velocity);
         }
 
         /// <summary>
@@ -85,7 +79,7 @@ namespace Uba_Engine
         /// <param name="s"></param>
         static void UpdateVelocity(Sprite s)
         {
-            s.velocity += s.owner.eventM.ValuePerSecond(s.acceleration);
+            s.Velocity += s.Owner.EventM.ValuePerSecond(s.Acceleration);
         }
 
         /// <summary>
@@ -94,17 +88,24 @@ namespace Uba_Engine
         /// <param name="s"></param>
         static void UpdateAcceleration(Sprite s)
         {
-            s.acceleration += s.owner.eventM.ValuePerSecond(s.changeInAcceleration);
+            s.Acceleration += s.Owner.EventM.ValuePerSecond(s.ChangeInAcceleration);
         }
 
+        /// <summary>
+        /// Initialises the Animator for the Sprite
+        /// </summary>
         public void InitialiseAnimator()
         {
-            frame.Animator = new Animator(this);
+            Frame.Animator = new Animator(this);
         }
 
+        /// <summary>
+        /// Returns the Sprites centre of rotation
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetRotationCenter()
         {
-            return frame.GetCurrentSize()/2;
+            return Frame.GetCurrentSize()/2;
         }
     }
 }

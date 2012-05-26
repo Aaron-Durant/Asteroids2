@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Uba_Engine
 {
     public class MenuManager : DrawableGameComponent
     {
-
+        /// <summary>
+        /// Menus the MenuManager is managing and TextManager used to draw Menus
+        /// </summary>
         public List<Menu> Menus;
-        private TextManager TextM;
+        private TextManager textM;
 
+        /// <summary>
+        /// Creates a new MenuManager
+        /// </summary>
+        /// <param name="g"> The Game object associated with the MenuManager </param>
+        /// <param name="textM"> The TextManager used to draw the Menus</param>
         public MenuManager(Game g, TextManager textM) : base (g)
         {
             Menus = new List<Menu>();
-            TextM = textM;
+            this.textM = textM;
         }
 
+        /// <summary>
+        /// Updates all visible menus and adds them to textM for drawing
+        /// </summary>
+        /// <param name="gameTime"> The GameTime object holding timing data </param>
         public override void Update(GameTime gameTime)
         {
             foreach (Menu menu in Menus)
@@ -36,26 +39,49 @@ namespace Uba_Engine
                             menuItem.Position = menu.StartPosition + new Vector2(0, menu.Spacing * i);
                         else 
                             menuItem.Position = menu.StartPosition + new Vector2(menu.Spacing * i, 0);
-                        TextM.AddText(menuItem);
+                        textM.AddText(menuItem);
                     }
                 }
             }
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Adds m to the list of Menus being managed
+        /// </summary>
+        /// <param name="m"> The Menu to add to Menus </param>
         public void AddMenu(Menu m)
         {
             Menus.Add(m);
         }
 
+        /// <summary>
+        /// Makes the Menu visible
+        /// </summary>
+        /// <param name="m"> The Menu to make visible </param>
         public void ShowMenu(Menu m)
         {
             m.Visible = true;
         }
 
+        /// <summary>
+        /// Makes the Menu invisible
+        /// </summary>
+        /// <param name="m"> The Menu to make invisible </param>
         public void HideMenu(Menu m)
         {
             m.Visible = false;
+        }
+
+        /// <summary>
+        /// Makes all menus being managed invisible
+        /// </summary>
+        public void HideAllMenus()
+        {
+            foreach (Menu menu in Menus)
+            {
+                menu.Visible = false;
+            }
         }
 
     }

@@ -20,23 +20,23 @@ namespace Asteroids_2
             if (loadM.AtLeastFirstLoaded)
             {
                 loadM.CollectedFirst();
-                GFX.txSplashScreen = (Texture2D)loadM.getLoadedAsset(0);
+                GFX.txSplashScreen = (Texture2D)loadM.GetLoadedAsset(0);
                 StaticSprite splashSprite = new StaticSprite(new Vector2(0, 0));
-                splashSprite.frame.Define(GFX.txSplashScreen, new Rectangle(0, 0, 1280, 720));
+                splashSprite.Frame.Define(GFX.txSplashScreen, new Rectangle(0, 0, 1280, 720));
                 engine.AddStaticSprite(splashSprite);
             }
 
-            if (loadM.loadComplete)
+            if (loadM.LoadComplete)
             {
                 // copy loaded assets to texutes
-                GFX.txSampleTexture = (Texture2D)loadM.getLoadedAsset(1); // Get Asset 1
+                GFX.txSampleTexture = (Texture2D)loadM.GetLoadedAsset(1); // Get Asset 1
 
                 // copy loaded assets to fonts
-                GFX.sfDebug = (SpriteFont) loadM.getLoadedAsset(2); // Get Asset 2
-                GFX.sfTitle = (SpriteFont) loadM.getLoadedAsset(3); // Get Asset 3
+                GFX.sfDebug = (SpriteFont) loadM.GetLoadedAsset(2); // Get Asset 2
+                GFX.sfTitle = (SpriteFont) loadM.GetLoadedAsset(3); // Get Asset 3
 
                 //change to new state
-                engine.newState = setUp;
+                engine.NewState = setUp;
             }
 
 

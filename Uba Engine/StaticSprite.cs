@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework;
 
 namespace Uba_Engine
 {
@@ -20,31 +10,34 @@ namespace Uba_Engine
         /// <summary>
         /// A Vector2 holding the position of the Sprite
         /// </summary>
-        private Vector2 position;
+        private Vector2 _position;
         /// <summary>
         /// Returns postition of the sprite
         /// </summary>
-        public Vector2 getPostition { get { return position; } }
+        public Vector2 getPostition { get { return _position; } }
         /// <summary>
         /// Holds the current size of the Sprite
         /// </summary>
-        public Vector2 size = new Vector2(0, 0);
+        public Vector2 Size = Vector2.Zero;
         /// <summary>
         /// The frame holding the textures for the Sprite
         /// </summary>
-        public Frame frame;
+        public Frame Frame;
         /// <summary>
         /// Color for the Sprite
         /// </summary>
         public Color color = Color.White;
         
         
-
-        public StaticSprite(Vector2 Position)
+        /// <summary>
+        /// Creates a new StaticSprite. Sets its position and initialises its Frame 
+        /// </summary>
+        /// <param name="position"> The position of the StaticSprite. This cannot be changed later</param>
+        public StaticSprite(Vector2 position)
         {
-            position = Position;
+            _position = position;
 
-            frame = new Frame(this);
+            Frame = new Frame(this);
         }
     }
 }

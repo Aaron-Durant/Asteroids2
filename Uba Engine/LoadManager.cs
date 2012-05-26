@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Uba_Engine
 {
@@ -18,126 +11,145 @@ namespace Uba_Engine
         /// <summary>
         /// Is the load completed
         /// </summary>
-        public bool loadComplete = false;
+        public bool LoadComplete = false;
         /// <summary>
         /// Has the first asset been loaded
         /// </summary>
-        internal bool firstAsset = false;
+        internal bool FirstAsset = false;
+        /// <summary>
+        /// Returns true if the FirstAsset has been loaded and it has not returned true before;
+        /// </summary>
         public bool AtLeastFirstLoaded
         {
-            get { return loadedAssets > 0 && !firstAsset; }
+            get { return LoadedAssets > 0 && !FirstAsset; }
         }
+        /// <summary>
+        /// Sets FirstAsset to true so that AtLeastFirstLoaded will return false for all future calls
+        /// </summary>
         public void CollectedFirst()
         {
-            firstAsset = true;
+            FirstAsset = true;
         }
         /// <summary>
         /// Holds a list of assets to be loaded
         /// </summary>
-        List<Asset> pendingList = new List<Asset>();
+        List<Asset> _pendingList = new List<Asset>();
         /// <summary>
         /// Holds a list of assests that have been loaded
         /// </summary>
-        List<Asset> loadedList = new List<Asset>();
+        List<Asset> _loadedList = new List<Asset>();
         /// <summary>
         /// Holds the number of assets that have been loaded
         /// </summary>
-        public int loadedAssets = 0;
+        public int LoadedAssets;
         /// <summary>
         /// The time to pause between loading each asset
         /// </summary>
-        int pause;
+        int _pause;
         /// <summary>
         /// Holds the game object the manager belongs to
         /// </summary>
         Game game;
         
-
+        /// <summary>
+        /// Creates a new LoadManager
+        /// </summary>
+        /// <param name="g"> The Game object associated with the LoadManager </param>
         public LoadManager(Game g) : base(g)
         {
             game = g;
         }
 
-        public override void Update(GameTime gameTime)
+        /// <summary>
+        /// Adds the texure at filename to the list of Assets to be loaded
+        /// </summary>
+        /// <param name="filename"> The file where the texture can be found</param>
+        public void AddTexture(string filename)
         {
-            base.Update(gameTime);
+            _pendingList.Add(new Asset(filename, typeof(Texture2D)));
         }
 
         /// <summary>
-        /// Adds the texure at filename to the list of assets to be loaded
+        /// Adds the font at the filename to the list of Assets to be loaded
         /// </summary>
-        /// <param name="filename"></param>
-        public void addTexture(string filename)
+        /// <param name="fontName"> The file where the font can be found </param>
+        public void AddFont(string fontName)
         {
-            pendingList.Add(new Asset(filename, typeof(Texture2D)));
+            _pendingList.Add(new Asset(fontName, typeof(SpriteFont)));
         }
 
-        public void addFont(string fontName)
+        /// <summary>
+        /// Returns an object containing a loaded Asset from _loadedList
+        /// </summary>
+        /// <param name="asset"> The position of the Asses in _loadedList </param>
+        /// <returns></returns>
+        public object GetLoadedAsset(int asset)
         {
-            pendingList.Add(new Asset(fontName, typeof(SpriteFont)));
-        }
-
-        public object getLoadedAsset(int asset)
-        {
-            return loadedList[asset].loadedObject;
+            return _loadedList[asset].LoadedObject;
         }
 
         /// <summary>
         /// Starts the loadManager in a new thread, so the game can do something else while waiting
         /// </summary>
         /// <param name="pause">Time to wait in milliseconds between each asset being loaded</param>
-        public void start(int pause)
+        public void Start(int pause)
         {
-            loadedAssets = 0;
-            this.pause = pause;
-            new Thread((ThreadStart)(() => loadAssets()))
+            LoadedAssets = 0;
+            this._pause = pause;
+            new Thread((ThreadStart)(() => LoadAssets()))
             {
 
             }.Start();
 
         }
 
-        private void loadAssets()
+        /// <summary>
+        /// Loads the Assets in _pendingList, sleeping for a set time between each load
+        /// </summary>
+        private void LoadAssets()
         {
-            while (loadedAssets < pendingList.Count)
+            while (LoadedAssets < _pendingList.Count)
             {
-                loadNextAsset();
-                Thread.Sleep(pause);
+                LoadNextAsset();
+                Thread.Sleep(_pause);
             }
-            Thread.Sleep(pause);
-            pendingList.Clear();
-            loadComplete = true;
+            Thread.Sleep(_pause);
+            _pendingList.Clear();
+            LoadComplete = true;
         }
 
-        private void loadNextAsset()
+        /// <summary>
+        /// Loads the next pending Asset from _pendingList and puts the loaded object into _loadedList
+        /// </summary>
+        private void LoadNextAsset()
         {
-            if (pendingList[loadedAssets].type == typeof(Texture2D))
+            if (_pendingList[LoadedAssets].Type == typeof(Texture2D))
             {
                 try
                 {
-                    pendingList[loadedAssets].loadedObject = game.Content.Load<Texture2D>(pendingList[loadedAssets].filename);
-                    pendingList[loadedAssets].loadStatus = "loaded";
-                    loadedList.Add(pendingList[loadedAssets]);
+                    _pendingList[LoadedAssets].LoadedObject = game.Content.Load<Texture2D>(_pendingList[LoadedAssets].Filename);
+                    _pendingList[LoadedAssets].LoadStatus = "loaded";
+                    _loadedList.Add(_pendingList[LoadedAssets]);
                 }
                 catch 
                 {
                     Console.WriteLine("Error: file not found");
                 }
             }
-            if (pendingList[loadedAssets].type == typeof(SpriteFont))
+            if (_pendingList[LoadedAssets].Type == typeof(SpriteFont))
             {
                 try
                 {
-                    pendingList[loadedAssets].loadedObject = game.Content.Load<SpriteFont>(pendingList[loadedAssets].filename);
-                    pendingList[loadedAssets].loadStatus = "loaded";
-                    loadedList.Add(pendingList[loadedAssets]);
+                    _pendingList[LoadedAssets].LoadedObject = game.Content.Load<SpriteFont>(_pendingList[LoadedAssets].Filename);
+                    _pendingList[LoadedAssets].LoadStatus = "loaded";
+                    _loadedList.Add(_pendingList[LoadedAssets]);
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Error: font not found");
                 }
             }
-            loadedAssets++;
+            LoadedAssets++;
         }
 
     }

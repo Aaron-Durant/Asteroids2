@@ -1,13 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Uba_Engine
 {
@@ -29,50 +22,65 @@ namespace Uba_Engine
         /// <summary>
         /// The current update rate of the engine
         /// </summary>
-        float updateRate = 0.0f;
-        /// <summary>
-        /// Is the engine running?
-        /// </summary>
-        bool running = true;
+        public float UpdateRate { get { return EventM.GameUPS; } }
         /// <summary>
         /// Holds a delegate to run when state is changed
         /// </summary>
-        public StateChanger newState = null;
+        public StateChanger NewState;
         /// <summary>
-        /// The EventManager associated with the engine
+        /// The EventManager associated with the Engine
         /// </summary>
-        public EventManager eventM;
-        
+        public EventManager EventM;
+        /// <summary>
+        /// The MenuManager associated with the Engine
+        /// </summary>
+        public MenuManager MenuM;
 
-        public Engine(Game g, EventManager eventM) : base(g)
+        /// <summary>
+        /// Default Constructor for the Engine object
+        /// </summary>
+        /// <param name="g"> The Game object the Engine runs </param>
+        /// <param name="eventM"> The EventManager object associated with the Engine </param>
+        /// <param name="menuM"> The MenuManager object associated with the Engine </param>
+        public Engine(Game g, EventManager eventM, MenuManager menuM) : base(g)
         {
             graphics = (GraphicsDeviceManager)g.Services.GetService(typeof (IGraphicsDeviceManager));
-            IGraphicsDeviceService GraphicsDeviceService = (IGraphicsDeviceService)g.Services.GetService(typeof(IGraphicsDeviceService));
-            spriteBatch = new SpriteBatch(GraphicsDeviceService.GraphicsDevice);
-            this.eventM = eventM;
+            IGraphicsDeviceService graphicsDeviceService = (IGraphicsDeviceService)g.Services.GetService(typeof(IGraphicsDeviceService));
+            spriteBatch = new SpriteBatch(graphicsDeviceService.GraphicsDevice);
+            this.EventM = eventM;
+            this.MenuM = menuM;
             spriteList = new List<Sprite>();
             staticSpriteList = new List<StaticSprite>();
         }
 
-        public void setScreen(int width, int height)
+        /// <summary>
+        /// Sets the screen size
+        /// </summary>
+        /// <param name="width"> The new width of the screen </param>
+        /// <param name="height"> The new height of the screen </param>
+        public void SetScreen(int width, int height)
         {
             graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
             graphics.ApplyChanges();
         }
 
+        /// <summary>
+        /// Updates the Engine. Updates all Sprites in the Engine and checks for new state
+        /// </summary>
+        /// <param name="gameTime"> GameTime object holding timing data </param>
         public override void Update(GameTime gameTime)
         {
 
             foreach (Sprite s in spriteList)
             {
-                s.onUpdate(s);
+                s.OnUpdate(s);
             }
 
-            if (newState != null)
+            if (NewState != null)
             {
-                StateChanger newGameState = newState;
-                newState = null;
+                StateChanger newGameState = NewState;
+                NewState = null;
                 newGameState();
             }
 
@@ -81,53 +89,57 @@ namespace Uba_Engine
 
         }
 
-
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-        }
-
-        public void addSprite(Sprite s)
+        /// <summary>
+        /// Adds a Sprite to the Engine's list of Sprites
+        /// </summary>
+        /// <param name="s"> The Sprite to add to the Engine </param>
+        public void AddSprite(Sprite s)
         {
             spriteList.Add(s);
-            s.owner = this;
+            s.Owner = this;
         }
 
+        /// <summary>
+        /// Adds a StaticSprite to the Engine's list of StaticSprites
+        /// </summary>
+        /// <param name="s"></param>
         public void AddStaticSprite(StaticSprite s)
         {
             staticSpriteList.Add(s);
         }
 
+        /// <summary>
+        /// Draws all the Sprites in the Engine
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
             foreach (Sprite s in spriteList)
             {
-                if (s.visible)
+                if (s.Visible)
                 {
-                    //spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color);
-                    spriteBatch.Draw(s.frame.Textures[s.frame.CurrentFrame], s.position, s.frame.Rectangles[s.frame.CurrentFrame], s.color, s.Rotation, s.GetRotationCenter(), s.Scale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(s.Frame.Textures[s.Frame.CurrentFrame], s.Position, s.Frame.Rectangles[s.Frame.CurrentFrame], s.color, s.Rotation, s.GetRotationCenter(), s.Scale, SpriteEffects.None, 0);
                 }
             }
 
             foreach (StaticSprite staticSprite in staticSpriteList )
             {
-                spriteBatch.Draw(staticSprite.frame.Textures[staticSprite.frame.CurrentFrame], staticSprite.getPostition, staticSprite.frame.Rectangles[staticSprite.frame.CurrentFrame], staticSprite.color);
+                spriteBatch.Draw(staticSprite.Frame.Textures[staticSprite.Frame.CurrentFrame], staticSprite.getPostition, staticSprite.Frame.Rectangles[staticSprite.Frame.CurrentFrame], staticSprite.color);
             }
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        public float getUpdateRate()
-        {
-            return updateRate;
-        }
-
-        public void clearAllAssets()
+        /// <summary>
+        /// Clears all Assets currently active
+        /// </summary>
+        public void ClearAllAssets()
         {
             staticSpriteList.Clear();
             spriteList.Clear();
+            MenuM.HideAllMenus();
         }
 
         /// <summary>
@@ -135,7 +147,6 @@ namespace Uba_Engine
         /// </summary>
         public void Exit()
         {
-            running = false;
             Game.Exit();
         }
     }

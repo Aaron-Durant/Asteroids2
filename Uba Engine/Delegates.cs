@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Uba_Engine
+﻿namespace Uba_Engine
 {
     public delegate void SpriteUpdate(Sprite s);
 

@@ -22,14 +22,14 @@ namespace Asteroids_2
 
             switch (gameState)
             {
-                case GameState.loading:
+                case GameState.Loading:
                     loading();
                     break;
-                case GameState.initializing:
+                case GameState.Initializing:
                     settingUp();
                     break;
-                case GameState.title:
-                    Text t = new Text(GFX.sfDebug, "Updates: " + eventM.GameUPS + " Frames: " + eventM.GameFPS, new Vector2(50, 50), Color.White, Align.topLeft );
+                case GameState.Title:
+                    Text t = new Text(GFX.sfDebug, "Updates: " + eventM.GameUPS + " Frames: " + eventM.GameFPS, new Vector2(50, 50), Color.White, Align.TopLeft );
                     textM.AddText(t);
                     break;
 

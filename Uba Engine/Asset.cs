@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Uba_Engine
 {
@@ -10,24 +7,29 @@ namespace Uba_Engine
         /// <summary>
         /// The filename where the asset is stored
         /// </summary>
-        internal string filename = "";
+        internal string Filename = "";
         /// <summary>
         /// The type of the asset
         /// </summary>
-        internal Type type = null;
+        internal Type Type;
         /// <summary>
         /// The loaded object of the asset
         /// </summary>
-        internal object loadedObject;
+        internal object LoadedObject;
         /// <summary>
         /// The assets loaded status
         /// </summary>
-        internal string loadStatus = "notLoaded";
+        internal string LoadStatus = "notLoaded";
 
+        /// <summary>
+        /// Constructor for the Asset
+        /// </summary>
+        /// <param name="filename"> The file where the Asset can be found </param>
+        /// <param name="type"> The object type of the Asset </param>
         internal Asset(string filename, Type type)
         {
-            this.filename = filename;
-            this.type = type;
+            Filename = filename;
+            Type = type;
         }
     }
 }

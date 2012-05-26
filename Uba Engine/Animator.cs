@@ -1,57 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework;
 
 namespace Uba_Engine
 {
     public class Animator
     {
+        /// <summary>
+        /// The Sprite the Animator is Animating
+        /// </summary>
         private Sprite AnimatingSprite;
+        /// <summary>
+        /// The Delegate to run when the Sprite is animated
+        /// </summary>
+        private Animation _onAnimate;
+        /// <summary>
+        /// The position of the Sprite last time the Animator updated
+        /// </summary>
+        private Vector2 _lastPostition;
+        /// <summary>
+        /// The Distance the Sprite can travel between animations
+        /// </summary>
+        private int _animationDistance;
+        /// <summary>
+        /// The total distance traveled by the Sprite since last animation
+        /// </summary>
+        private float _distanceTraveled;
 
-        private Animation onAnimate;
-
-        private Vector2 LastPostition;
-
-        private int AnimationDistance;
-
-        private float DistanceTraveled;
-
+        /// <summary>
+        /// Default constructor for Animator
+        /// </summary>
+        /// <param name="s"> The Sprite associated with the Animator </param>
         public Animator(Sprite s)
         {
             AnimatingSprite = s;
         }
 
+        /// <summary>
+        /// Calls the _onAnimate delgate on the Sprite
+        /// </summary>
+        /// <param name="s"> Does nothing. Here to keep delegates happy </param>
         public void Animate(Sprite s)
         {
-            onAnimate();
+            _onAnimate();
         }
 
+        /// <summary>
+        /// Sets up animation according to distance on the Sprite
+        /// </summary>
+        /// <param name="distance"> The distance between animations </param>
         public void AnimateByDistance(int distance)
         {
-            LastPostition = AnimatingSprite.position;
-            AnimationDistance = distance;
-            onAnimate = AnimateDistance;
-            AnimatingSprite.onUpdate += Animate;
-            DistanceTraveled = 0f;
+            _lastPostition = AnimatingSprite.Position;
+            _animationDistance = distance;
+            _onAnimate = AnimateDistance;
+            AnimatingSprite.OnUpdate += Animate;
+            _distanceTraveled = 0f;
         }
 
+        /// <summary>
+        /// Checks distances and animates the Sprite is it has traveled far enough
+        /// </summary>
         private void AnimateDistance()
         {
-            DistanceTraveled += Vector2.Distance(LastPostition, AnimatingSprite.position);
-            if (DistanceTraveled >= AnimationDistance)
+            _distanceTraveled += Vector2.Distance(_lastPostition, AnimatingSprite.Position);
+            if (_distanceTraveled >= _animationDistance)
             {
-                DistanceTraveled -= AnimationDistance;
-                AnimatingSprite.frame.NextFrame();
+                _distanceTraveled -= _animationDistance;
+                AnimatingSprite.Frame.NextFrame();
             }
-            LastPostition = AnimatingSprite.position;
+            _lastPostition = AnimatingSprite.Position;
         }
     }
 }

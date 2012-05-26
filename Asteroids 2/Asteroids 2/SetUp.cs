@@ -20,12 +20,12 @@ namespace Asteroids_2
         /// </summary>
         public void setUp()
         {
-            gameState = GameState.initializing;
+            gameState = GameState.Initializing;
 
             // Add setup tasks here
-            setupM.addSetupTask(CreateMenus);
+            setupM.AddSetupTask(CreateMenus);
 
-            setupM.start();
+            setupM.Start();
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace Asteroids_2
         /// </summary>
         public void settingUp()
         {
-            if (setupM.setupComplete)
+            if (setupM.SetupComplete)
             {
-                engine.clearAllAssets();
-                textM.AddText(new Text(GFX.sfTitle, "ASTEROIDS", new Vector2(screenSize.Center.X, screenSize.Center.Y), Color.White, Align.center));
+                engine.ClearAllAssets();
+                textM.AddText(new Text(GFX.sfTitle, "ASTEROIDS", new Vector2(screenSize.Center.X, screenSize.Center.Y), Color.White, Align.Center));
             }
         }
 
@@ -48,7 +48,7 @@ namespace Asteroids_2
 
         public void MainMenu()
         {
-            Menus.mainMenu = new Menu(new Vector2(200, 200), 300, false, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.topLeft);
+            Menus.mainMenu = new Menu(new Vector2(200, 200), 300, false, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.TopLeft);
             Menus.mainMenu.OnSelect = Menus.SelectText;
             Menus.mainMenu.OnDeselect = Menus.DeselectText;
             Menus.mainMenu.AddMenuItem(new Text("Start"));

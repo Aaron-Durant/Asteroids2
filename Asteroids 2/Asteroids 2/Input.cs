@@ -14,26 +14,26 @@ namespace Asteroids_2
         {
             //Check for exit
             InputManager inputM = g.inputM;
-            if (inputM.keyPressed(Keys.Escape) || inputM.buttonPressed(1, Buttons.Back)) g.engine.Exit();
+            if (inputM.KeyPressed(Keys.Escape) || inputM.ButtonPressed(1, Buttons.Back)) g.engine.Exit();
 
             switch (g.gameState)
             {
-                case GameState.initializing:
-                    if (g.setupM.setupComplete)
+                case GameState.Initializing:
+                    if (g.setupM.SetupComplete)
                     {
                         for (int i = 1; i < 5; i++)
                         {
-                            if (inputM.buttonPressed(i, Buttons.A) || inputM.buttonPressed(i, Buttons.Start))
+                            if (inputM.ButtonPressed(i, Buttons.A) || inputM.ButtonPressed(i, Buttons.Start))
                             {
-                                g.engine.newState = g.mainMenu;
+                                g.engine.NewState = g.mainMenu;
                                 g.MasterController = i;
                             }
                         }
-                        if (inputM.keyPressed(Keys.Enter))
-                            g.engine.newState = g.mainMenu;
+                        if (inputM.KeyPressed(Keys.Enter))
+                            g.engine.NewState = g.mainMenu;
                     }
                     break;
-                case GameState.title:
+                case GameState.Title:
                     //if (inputM.keyDown(Keys.Right) || inputM.buttonDown(1, Buttons.LeftThumbstickRight)) g.s.velocity.X += 5;
                     //else if (inputM.keyDown(Keys.Left) || inputM.buttonDown(1, Buttons.LeftThumbstickLeft)) g.s.velocity.X += -5;
                     ////else g.s.velocity.X = 0;
@@ -42,15 +42,15 @@ namespace Asteroids_2
                     ////else g.s.velocity.Y = 0;
                     
 
-                    if (inputM.keyPressed(Keys.Up)) Menus.mainMenu.PreviousMenuItem();
-                    if (inputM.keyPressed(Keys.Down)) Menus.mainMenu.NextMenuItem();
+                    if (inputM.KeyPressed(Keys.Up)) Menus.mainMenu.PreviousMenuItem();
+                    if (inputM.KeyPressed(Keys.Down)) Menus.mainMenu.NextMenuItem();
 
-                    if (inputM.keyDown(Keys.D))
+                    if (inputM.KeyDown(Keys.D))
                     {
                         g.s.Rotation += 0.1f;
                     }
 
-                    if (inputM.buttonDown(1, Buttons.A) || inputM.keyPressed(Keys.A))
+                    if (inputM.ButtonDown(1, Buttons.A) || inputM.KeyPressed(Keys.A))
                     {
                         g.s.Rotation -= 0.1f;
                     }

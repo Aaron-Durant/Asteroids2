@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 
 namespace Uba_Engine
 {
@@ -11,34 +7,32 @@ namespace Uba_Engine
         /// <summary>
         /// List of delagates to run when setting up
         /// </summary>
-        public SetupDelegate onSetup;
+        public SetupDelegate OnSetup;
         /// <summary>
         /// Is setup complete?
         /// </summary>
-        public bool setupComplete = false;
+        public bool SetupComplete;
 
         public SetupManager()
         {
             
         }
 
-
         /// <summary>
         /// Adds a new setupTask to onUpdate
         /// </summary>
         /// <param name="setupTask"></param>
-        public void addSetupTask(SetupDelegate setupTask)
+        public void AddSetupTask(SetupDelegate setupTask)
         {
-            onSetup += setupTask;
+            OnSetup += setupTask;
         }
 
         /// <summary>
         /// Starts a new Thread to run setup tasks
         /// </summary>
-        /// <param name="pause"></param>
-        public void start()
+        public void Start()
         {
-            new Thread((ThreadStart)(() => runSetupTasks()))
+            new Thread((ThreadStart)(() => RunSetupTasks()))
             {
 
             }.Start();
@@ -47,10 +41,10 @@ namespace Uba_Engine
         /// <summary>
         /// Runs all delegates held in onSetup;
         /// </summary>
-        public void runSetupTasks()
+        public void RunSetupTasks()
         {
-            if (onSetup != null) onSetup();
-            setupComplete = true;
+            if (OnSetup != null) OnSetup();
+            SetupComplete = true;
         }
     }
 }

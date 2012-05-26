@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-
 
 namespace Uba_Engine
 {
@@ -18,11 +9,11 @@ namespace Uba_Engine
         /// <summary>
         /// List of Text objects to be drawn on screen this update
         /// </summary>
-        List<Text> Texts;
+        List<Text> _texts;
         /// <summary>
         /// A SpriteBatch to draw the text
         /// </summary>
-        SpriteBatch spriteBatch;
+        SpriteBatch _spriteBatch;
 
         /// <summary>
         /// Default constructor for TextManager
@@ -31,9 +22,9 @@ namespace Uba_Engine
         public TextManager(Game g)
             : base(g)
         {
-            Texts = new List<Text>();
+            _texts = new List<Text>();
             IGraphicsDeviceService GraphicsDeviceService = (IGraphicsDeviceService)g.Services.GetService(typeof(IGraphicsDeviceService));
-            spriteBatch = new SpriteBatch(GraphicsDeviceService.GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDeviceService.GraphicsDevice);
         }
 
         /// <summary>
@@ -42,40 +33,45 @@ namespace Uba_Engine
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            _spriteBatch.Begin();
 
-            foreach (Text text in Texts)
+            foreach (Text text in _texts)
             {
                 Vector2 position = CalculatePosition(text);
-                spriteBatch.DrawString(text.Font, text.text, position, text.TextColor, 0f, new Vector2(), text.Scale, SpriteEffects.None, 0 );
+                _spriteBatch.DrawString(text.Font, text.text, position, text.TextColor, 0f, new Vector2(), text.Scale, SpriteEffects.None, 0 );
             }
 
-            spriteBatch.End();
+            _spriteBatch.End();
             ClearTexts();
  	        base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Calculates the position the Text should be drawn at given its alignment
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public Vector2 CalculatePosition(Text t)
         {
             switch (t.Alignment)
             {
-                case Align.bottomLeft:
+                case Align.BottomLeft:
                     return t.Position - new Vector2(0, t.Size.Y);
-                case Align.bottom:
+                case Align.Bottom:
                     return t.Position - new Vector2(t.Size.X/2, t.Size.Y);
-                case Align.bottomRight:
+                case Align.BottomRight:
                     return t.Position - t.Size;
-                case Align.right:
+                case Align.Right:
                     return t.Position - new Vector2(t.Size.X, t.Size.Y/2);
-                case Align.topRight:
+                case Align.TopRight:
                     return t.Position - new Vector2(t.Size.X, 0);
-                case Align.top:
+                case Align.Top:
                     return t.Position - new Vector2(t.Size.X/2, 0);
-                case Align.topLeft:
+                case Align.TopLeft:
                     return t.Position;
-                case Align.left:
+                case Align.Left:
                     return t.Position - new Vector2(0, t.Size.Y/2);
-                case Align.center:
+                case Align.Center:
                     return t.Position - (t.Size / 2);
                 default:
                     return t.Position;
@@ -83,14 +79,21 @@ namespace Uba_Engine
             }
         }
 
+        /// <summary>
+        /// Adds a new Text to the list of texts to be drawn if it is not already in the list
+        /// </summary>
+        /// <param name="t"></param>
         public void AddText(Text t)
         {
-            if (!Texts.Contains(t)) Texts.Add(t);
+            if (!_texts.Contains(t)) _texts.Add(t);
         }
 
+        /// <summary>
+        /// Removes all texts from the list of texts. This is called every Draw
+        /// </summary>
         public void ClearTexts()
         {
-            Texts.Clear();
+            _texts.Clear();
         }
 
 

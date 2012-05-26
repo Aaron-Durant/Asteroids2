@@ -21,8 +21,8 @@ namespace Asteroids_2
 
         public void mainMenu()
         {
-            engine.clearAllAssets();
-            gameState = GameState.title;
+            engine.ClearAllAssets();
+            gameState = GameState.Title;
 
             s = new Sprite();
             //engine.addSprite(s);

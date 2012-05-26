@@ -1,28 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 
 namespace Uba_Engine
 {
     public class Text
     {
+        /// <summary>
+        /// Font used to draw Text
+        /// </summary>
         public SpriteFont Font;
+        /// <summary>
+        /// The String the Text will display
+        /// </summary>
         public String text;
+        /// <summary>
+        /// The Position of the Text
+        /// </summary>
         public Vector2 Position;
+        /// <summary>
+        /// The Color of the text
+        /// </summary>
         public Color TextColor;
+        /// <summary>
+        /// Returns the size of the Text in the current font
+        /// </summary>
         public Vector2 Size { get { return Font.MeasureString(text); } }
+        /// <summary>
+        /// The scale of the Text
+        /// </summary>
         public Vector2 Scale = new Vector2(1f);
+        /// <summary>
+        /// The alignment of the Text
+        /// </summary>
         public Align Alignment;
 
+        /// <summary>
+        /// Creates a new Text object
+        /// </summary>
+        /// <param name="font"> The font to use for the Text </param>
+        /// <param name="text"> The text to display </param>
+        /// <param name="position"> The position of the Text </param>
+        /// <param name="color"> The color of the Text </param>
+        /// <param name="alignment"> The alignment of the Text </param>
         public Text(SpriteFont font, String text, Vector2 position, Color color, Align alignment)
         {
             Font = font;

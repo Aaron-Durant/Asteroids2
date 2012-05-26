@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Uba_Engine
@@ -12,8 +8,8 @@ namespace Uba_Engine
         /// <summary>
         /// Variables to holds states of keyboards and gamepads
         /// </summary>
-        KeyboardState latestKeyboardState;
-        KeyboardState oldestKeyboardState;
+        KeyboardState _latestKeyboardState;
+        KeyboardState _oldestKeyboardState;
         GamePadState[] gamePads = new GamePadState[8];
         
         /// <summary>
@@ -22,7 +18,7 @@ namespace Uba_Engine
         /// </summary>
         public InputManager(Game g) : base(g)
         {
-            latestKeyboardState = Keyboard.GetState();
+            _latestKeyboardState = Keyboard.GetState();
             gamePads[0] = GamePad.GetState(PlayerIndex.One);
             gamePads[1] = GamePad.GetState(PlayerIndex.Two);
             gamePads[2] = GamePad.GetState(PlayerIndex.Three);
@@ -35,8 +31,8 @@ namespace Uba_Engine
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            oldestKeyboardState = latestKeyboardState;
-            latestKeyboardState = Keyboard.GetState();
+            _oldestKeyboardState = _latestKeyboardState;
+            _latestKeyboardState = Keyboard.GetState();
             gamePads[4] = gamePads[0];
             gamePads[0] = GamePad.GetState(PlayerIndex.One);
             gamePads[5] = gamePads[1];
@@ -54,9 +50,9 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyDown(Keys key)
+        public bool KeyDown(Keys key)
         {
-            return latestKeyboardState.IsKeyDown(key);
+            return _latestKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -64,9 +60,9 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyUp(Keys key)
+        public bool KeyUp(Keys key)
         {
-            return latestKeyboardState.IsKeyUp(key);
+            return _latestKeyboardState.IsKeyUp(key);
         }
 
         /// <summary>
@@ -74,9 +70,9 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyPressed(Keys key)
+        public bool KeyPressed(Keys key)
         {
-            return latestKeyboardState.IsKeyDown(key) && oldestKeyboardState.IsKeyUp(key);
+            return _latestKeyboardState.IsKeyDown(key) && _oldestKeyboardState.IsKeyUp(key);
         }
 
         /// <summary>
@@ -84,9 +80,9 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyReleased(Keys key)
+        public bool KeyReleased(Keys key)
         {
-            return latestKeyboardState.IsKeyUp(key) && oldestKeyboardState.IsKeyDown(key);
+            return _latestKeyboardState.IsKeyUp(key) && _oldestKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -94,9 +90,9 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyHeld(Keys key)
+        public bool KeyHeld(Keys key)
         {
-            return latestKeyboardState.IsKeyDown(key) && oldestKeyboardState.IsKeyDown(key);
+            return _latestKeyboardState.IsKeyDown(key) && _oldestKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -105,7 +101,7 @@ namespace Uba_Engine
         /// <param name="gamePad"></param>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonDown(int gamePad, Buttons button)
+        public bool ButtonDown(int gamePad, Buttons button)
         {
             return gamePads[gamePad - 1].IsButtonDown(button);
         }
@@ -116,7 +112,7 @@ namespace Uba_Engine
         /// <param name="gamePad"></param>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonUp(int gamePad, Buttons button)
+        public bool ButtonUp(int gamePad, Buttons button)
         {
             return gamePads[gamePad - 1].IsButtonUp(button);
         }
@@ -127,7 +123,7 @@ namespace Uba_Engine
         /// <param name="gamePad"></param>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonPressed(int gamePad, Buttons button)
+        public bool ButtonPressed(int gamePad, Buttons button)
         {
             return gamePads[gamePad - 1].IsButtonDown(button) && gamePads[gamePad + 3].IsButtonUp(button);
         }
@@ -138,7 +134,7 @@ namespace Uba_Engine
         /// <param name="gamePad"></param>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonReleased(int gamePad, Buttons button)
+        public bool ButtonReleased(int gamePad, Buttons button)
         {
             return gamePads[gamePad - 1].IsButtonUp(button) && gamePads[gamePad + 3].IsButtonDown(button);
         }
@@ -149,7 +145,7 @@ namespace Uba_Engine
         /// <param name="gamePad"></param>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonHeld(int gamePad, Buttons button)
+        public bool ButtonHeld(int gamePad, Buttons button)
         {
             return gamePads[gamePad - 1].IsButtonDown(button) && gamePads[gamePad + 3].IsButtonDown(button);
         }
@@ -159,7 +155,7 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="gamePad"></param>
         /// <returns></returns>
-        public Vector2 leftThumbstick(int gamePad)
+        public Vector2 LeftThumbstick(int gamePad)
         {
             return gamePads[gamePad - 1].ThumbSticks.Left;
         }
@@ -169,7 +165,7 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="gamePad"></param>
         /// <returns></returns>
-        public Vector2 rightThumbstick(int gamePad)
+        public Vector2 RightThumbstick(int gamePad)
         {
             return gamePads[gamePad - 1].ThumbSticks.Right;
         }
@@ -179,7 +175,7 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="gamePad"></param>
         /// <returns></returns>
-        public float rightTrigger(int gamePad)
+        public float RightTrigger(int gamePad)
         {
             return gamePads[gamePad - 1].Triggers.Right;
         }
@@ -189,7 +185,7 @@ namespace Uba_Engine
         /// </summary>
         /// <param name="gamePad"></param>
         /// <returns></returns>
-        public float leftTrigger(int gamePad)
+        public float LeftTrigger(int gamePad)
         {
             return gamePads[gamePad - 1].Triggers.Left;
         }

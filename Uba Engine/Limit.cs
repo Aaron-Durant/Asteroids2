@@ -1,86 +1,99 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework;
 
 namespace Uba_Engine
 {
     
     public class Limit
     {
-        public static void limitInitialize(Sprite s, LimitHit onLimit, Rectangle limitBox)
+        /// <summary>
+        /// Initializes the Sprites limiting within the limitbox
+        /// </summary>
+        /// <param name="s"> The Sprite to limit </param>
+        /// <param name="onLimit"> The Delegate to call when Sprite hits limitBox </param>
+        /// <param name="limitBox"> The LimitBox the Sprite is confined to </param>
+        public static void LimitInitialize(Sprite s, LimitHit onLimit, Rectangle limitBox)
         {
-            s.onUpdate += checkLimit;
-            s.limitBox = limitBox;
-            s.onLimit = onLimit;
+            s.OnUpdate += CheckLimit;
+            s.LimitBox = limitBox;
+            s.OnLimit = onLimit;
         }
 
-        public static void checkLimit(Sprite s)
+        /// <summary>
+        /// Checks if the Sprite has met its Limit criteria
+        /// </summary>
+        /// <param name="s"> The Sprite to check </param>
+        public static void CheckLimit(Sprite s)
         {
-            if (s.onLimit == wrap)
+            if (s.OnLimit == Wrap)
             {
-                bool Top = (s.LowerBound) < (s.limitBox.Y);
-                bool Bottom = (s.UpperBound) > (s.limitBox.Y + s.limitBox.Height);
-                bool Right = (s.LeftBound) > s.limitBox.X + (s.limitBox.Width);
-                bool Left = (s.RightBound) < (s.limitBox.X);
+                bool top = (s.LowerBound) < (s.LimitBox.Y);
+                bool bottom = (s.UpperBound) > (s.LimitBox.Y + s.LimitBox.Height);
+                bool right = (s.LeftBound) > s.LimitBox.X + (s.LimitBox.Width);
+                bool left = (s.RightBound) < (s.LimitBox.X);
 
-                if (Top) s.onLimit(new LimitObject(s, Direction.NORTH));
-                else if (Bottom) s.onLimit(new LimitObject(s, Direction.SOUTH));
-                else if (Right) s.onLimit(new LimitObject(s, Direction.EASTH));
-                else if (Left) s.onLimit(new LimitObject(s, Direction.WEST));
+                if (top) s.OnLimit(new LimitObject(s, Direction.North));
+                else if (bottom) s.OnLimit(new LimitObject(s, Direction.South));
+                else if (right) s.OnLimit(new LimitObject(s, Direction.East));
+                else if (left) s.OnLimit(new LimitObject(s, Direction.West));
             }
-            else if (s.onLimit == bounce)
+            else if (s.OnLimit == Bounce)
             {
-                bool Top = (s.position.Y) < (s.limitBox.Y);
-                bool Bottom = (s.position.Y + s.size.Y) > (s.limitBox.Y + s.limitBox.Height);
-                bool Right = (s.position.X + s.size.X) > (s.limitBox.X + s.limitBox.Height);
-                bool Left = (s.position.X) < (s.limitBox.X);
+                bool top = (s.Position.Y) < (s.LimitBox.Y);
+                bool bottom = (s.Position.Y + s.Size.Y) > (s.LimitBox.Y + s.LimitBox.Height);
+                bool right = (s.Position.X + s.Size.X) > (s.LimitBox.X + s.LimitBox.Height);
+                bool left = (s.Position.X) < (s.LimitBox.X);
 
-                if (Top) s.onLimit(new LimitObject(s, Direction.NORTH));
-                else if (Bottom) s.onLimit(new LimitObject(s, Direction.SOUTH));
-                else if (Right) s.onLimit(new LimitObject(s, Direction.EASTH));
-                else if (Left) s.onLimit(new LimitObject(s, Direction.WEST));
+                if (top) s.OnLimit(new LimitObject(s, Direction.North));
+                else if (bottom) s.OnLimit(new LimitObject(s, Direction.South));
+                else if (right) s.OnLimit(new LimitObject(s, Direction.East));
+                else if (left) s.OnLimit(new LimitObject(s, Direction.West));
             }
             
         }
 
-
-        public static void wrap(LimitObject limitObject)
+        /// <summary>
+        /// Wraps the Sprite round its LimitBox by moving to other side 
+        /// </summary>
+        /// <param name="limitObject"> The LimitObject holding data for Limiting </param>
+        public static void Wrap(LimitObject limitObject)
         {
-            if (limitObject.direction == Direction.NORTH)
-                limitObject.limitingSprite.position.Y += (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Y);
-            else if (limitObject.direction == Direction.SOUTH)
-                limitObject.limitingSprite.position.Y -= (limitObject.limitingSprite.limitBox.Height + limitObject.limitingSprite.size.Y);
-            else if (limitObject.direction == Direction.EASTH)
-                limitObject.limitingSprite.position.X -= (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.X);
-            else if (limitObject.direction == Direction.WEST)
-                limitObject.limitingSprite.position.X += (limitObject.limitingSprite.limitBox.Width + limitObject.limitingSprite.size.X);
+            if (limitObject.Direction == Direction.North)
+                limitObject.LimitingSprite.Position.Y += (limitObject.LimitingSprite.LimitBox.Height + limitObject.LimitingSprite.Size.Y);
+            else if (limitObject.Direction == Direction.South)
+                limitObject.LimitingSprite.Position.Y -= (limitObject.LimitingSprite.LimitBox.Height + limitObject.LimitingSprite.Size.Y);
+            else if (limitObject.Direction == Direction.East)
+                limitObject.LimitingSprite.Position.X -= (limitObject.LimitingSprite.LimitBox.Width + limitObject.LimitingSprite.Size.X);
+            else if (limitObject.Direction == Direction.West)
+                limitObject.LimitingSprite.Position.X += (limitObject.LimitingSprite.LimitBox.Width + limitObject.LimitingSprite.Size.X);
         }
 
-        public static void bounce(LimitObject limitObject)
+        /// <summary>
+        /// Bounces the Sprite off the wall of the LimitBox
+        /// </summary>
+        /// <param name="limitObject"> The LimitObject holding data for Limiting </param>
+        public static void Bounce(LimitObject limitObject)
         {
-            if (limitObject.direction == Direction.NORTH || limitObject.direction == Direction.SOUTH)
-                limitObject.limitingSprite.velocity.Y *= -1;
-            else if (limitObject.direction == Direction.EASTH || limitObject.direction == Direction.WEST)
-                limitObject.limitingSprite.velocity.X *= -1;
+            if (limitObject.Direction == Direction.North || limitObject.Direction == Direction.South)
+                limitObject.LimitingSprite.Velocity.Y *= -1;
+            else if (limitObject.Direction == Direction.East || limitObject.Direction == Direction.West)
+                limitObject.LimitingSprite.Velocity.X *= -1;
         }
     }
 
     public class LimitObject
     {
-        public Sprite limitingSprite;
-        public Direction direction;
+        public Sprite LimitingSprite;
+        public Direction Direction;
 
+        /// <summary>
+        /// Creates a new LimitObject
+        /// </summary>
+        /// <param name="s"> The Sprite being limited </param>
+        /// <param name="direction"> The Direction it has hit the LimitBox </param>
         public LimitObject(Sprite s, Direction direction)
         {
-            limitingSprite = s;
-            this.direction = direction;
+            LimitingSprite = s;
+            Direction = direction;
         }
     }
 
