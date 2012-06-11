@@ -13,4 +13,6 @@
     public delegate void Animation();
 
     public delegate void MenuItemSelect(Text text);
+
+    public delegate void TextSelect();
 }

@@ -18,7 +18,7 @@ namespace Asteroids_2
         public void gameLoop()
         {
             //Check input
-            Input.checkInput(this);
+            checkInput();
 
             switch (gameState)
             {
@@ -28,9 +28,8 @@ namespace Asteroids_2
                 case GameState.Initializing:
                     settingUp();
                     break;
-                case GameState.Title:
-                    Text t = new Text(GFX.sfDebug, "Updates: " + eventM.GameUPS + " Frames: " + eventM.GameFPS, new Vector2(50, 50), Color.White, Align.TopLeft );
-                    textM.AddText(t);
+                case GameState.Menus:
+                    
                     break;
 
             }

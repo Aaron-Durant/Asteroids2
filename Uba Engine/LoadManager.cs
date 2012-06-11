@@ -95,12 +95,26 @@ namespace Uba_Engine
         public void Start(int pause)
         {
             LoadedAssets = 0;
-            this._pause = pause;
+            _pause = pause;
             new Thread((ThreadStart)(() => LoadAssets()))
             {
 
             }.Start();
 
+        }
+
+        /// <summary>
+        /// Starts the loadManager in a new thread, so the game can do something else while waiting
+        /// </summary>
+        /// <param name="targetLoadTime"> The target time in milliseconds to load all the Assets</param>
+        public void Start(float targetLoadTime)
+        {
+            LoadedAssets = 0;
+            _pause = (int)(targetLoadTime/_pendingList.Count);
+            new Thread((ThreadStart)(() => LoadAssets()))
+            {
+
+            }.Start();
         }
 
         /// <summary>

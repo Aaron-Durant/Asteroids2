@@ -38,7 +38,7 @@ namespace Uba_Engine
             foreach (Text text in _texts)
             {
                 Vector2 position = CalculatePosition(text);
-                _spriteBatch.DrawString(text.Font, text.text, position, text.TextColor, 0f, new Vector2(), text.Scale, SpriteEffects.None, 0 );
+                _spriteBatch.DrawString(text.Font, text.text, text.Position, text.TextColor, 0f, position, text.Scale, SpriteEffects.None, 0 );
             }
 
             _spriteBatch.End();
@@ -56,25 +56,25 @@ namespace Uba_Engine
             switch (t.Alignment)
             {
                 case Align.BottomLeft:
-                    return t.Position - new Vector2(0, t.Size.Y);
+                    return new Vector2(0, t.Size.Y);
                 case Align.Bottom:
-                    return t.Position - new Vector2(t.Size.X/2, t.Size.Y);
+                    return new Vector2(t.Size.X / 2, t.Size.Y);
                 case Align.BottomRight:
-                    return t.Position - t.Size;
+                    return t.Size;
                 case Align.Right:
-                    return t.Position - new Vector2(t.Size.X, t.Size.Y/2);
+                    return new Vector2(t.Size.X, t.Size.Y / 2);
                 case Align.TopRight:
-                    return t.Position - new Vector2(t.Size.X, 0);
+                    return new Vector2(t.Size.X, 0);
                 case Align.Top:
-                    return t.Position - new Vector2(t.Size.X/2, 0);
+                    return new Vector2(t.Size.X / 2, 0);
                 case Align.TopLeft:
-                    return t.Position;
+                    return Vector2.Zero;
                 case Align.Left:
-                    return t.Position - new Vector2(0, t.Size.Y/2);
+                    return new Vector2(0, t.Size.Y/2);
                 case Align.Center:
-                    return t.Position - (t.Size / 2);
+                    return (t.Size / 2);
                 default:
-                    return t.Position;
+                    return Vector2.Zero;
 
             }
         }

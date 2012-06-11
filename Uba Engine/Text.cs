@@ -35,6 +35,10 @@ namespace Uba_Engine
         /// The alignment of the Text
         /// </summary>
         public Align Alignment;
+        /// <summary>
+        /// The delegate to call when a Text item is selected in a menu
+        /// </summary>
+        public TextSelect OnSelect;
 
         /// <summary>
         /// Creates a new Text object
@@ -56,10 +60,12 @@ namespace Uba_Engine
         /// <summary>
         /// Constructor for Text object to be used only when creating Text object for Menus as other properties are defined in the menu
         /// </summary>
-        /// <param name="text"></param>
-        public Text(String text)
+        /// <param name="text"> The text associated with the text object </param>
+        /// <param name="onSelect"> The delegate to run when selected </param>
+        public Text(String text, TextSelect onSelect)
         {
             this.text = text;
+            OnSelect = onSelect;
         }
     }
 }

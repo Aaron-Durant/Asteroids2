@@ -12,6 +12,11 @@ namespace Uba_Engine
         private TextManager textM;
 
         /// <summary>
+        /// The current visible menu
+        /// </summary>
+        public Menu CurrentMenu;
+
+        /// <summary>
         /// Creates a new MenuManager
         /// </summary>
         /// <param name="g"> The Game object associated with the MenuManager </param>
@@ -58,19 +63,31 @@ namespace Uba_Engine
         /// <summary>
         /// Makes the Menu visible
         /// </summary>
-        /// <param name="m"> The Menu to make visible </param>
-        public void ShowMenu(Menu m)
+        /// <param name="menu"> The Menu to make visible </param>
+        /// <param name="reset"> Should the menu be reset to the first item? </param>
+        public void ShowMenu(Menu menu, bool reset)
         {
-            m.Visible = true;
+            menu.Visible = true;
+            if (reset)
+            {
+                menu.OnDeselect(menu.MenuItems[menu.SelectedItem]);
+                menu.SelectedItem = 0;
+                menu.OnSelect(menu.MenuItems[0]);
+            }
+        }
+
+        public void SelectAcitiveMenu(Menu menu)
+        {
+            CurrentMenu = menu;
         }
 
         /// <summary>
         /// Makes the Menu invisible
         /// </summary>
-        /// <param name="m"> The Menu to make invisible </param>
-        public void HideMenu(Menu m)
+        /// <param name="menu"> The Menu to make invisible </param>
+        public void HideMenu(Menu menu)
         {
-            m.Visible = false;
+            menu.Visible = false;
         }
 
         /// <summary>

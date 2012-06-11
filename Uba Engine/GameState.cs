@@ -14,6 +14,6 @@ namespace Uba_Engine
         /// <summary>
         /// game is on title screen
         /// </summary>
-        public const int Title = 2;
+        public const int Menus = 2;
     }
 }

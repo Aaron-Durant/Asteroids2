@@ -91,7 +91,7 @@ namespace Asteroids_2
             // Initializes the menuManager object
             menuM = new MenuManager(this, textM);
             // Initializes the engine object
-            engine = new Engine(this, eventM);
+            engine = new Engine(this, eventM, menuM);
 
             Components.Add(inputM);
             Components.Add(eventM);
@@ -128,7 +128,7 @@ namespace Asteroids_2
             loadM.AddFont("Fonts\\TitleFont"); // Asset 3
 
             // Start loadManager
-            loadM.Start(500);
+            loadM.Start(1000f);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Asteroids_2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             base.Draw(gameTime);

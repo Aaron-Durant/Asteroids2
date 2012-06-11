@@ -23,9 +23,11 @@ namespace Asteroids_2
             gameState = GameState.Initializing;
 
             // Add setup tasks here
-            setupM.AddSetupTask(CreateMenus);
-
-            setupM.Start();
+            if (!setupM.SetupComplete)
+            {
+                setupM.AddSetupTask(CreateMenus);
+                setupM.Start();
+            }
         }
 
         /// <summary>
@@ -43,19 +45,13 @@ namespace Asteroids_2
 
         public void CreateMenus()
         {
-            MainMenu();
+            CreateMainMenu();
+            CreateSinglePlayerMenu();
+            CreateMultiPlayerMenu();
+            CreateOptionMenu();
         }
 
-        public void MainMenu()
-        {
-            Menus.mainMenu = new Menu(new Vector2(200, 200), 300, false, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.TopLeft);
-            Menus.mainMenu.OnSelect = Menus.SelectText;
-            Menus.mainMenu.OnDeselect = Menus.DeselectText;
-            Menus.mainMenu.AddMenuItem(new Text("Start"));
-            Menus.mainMenu.AddMenuItem(new Text("Do Nothing"));
-            Menus.mainMenu.WrapAtEnd = true;
-            menuM.AddMenu(Menus.mainMenu);
-        }
+        
 
 
     }

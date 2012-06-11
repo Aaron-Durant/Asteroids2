@@ -45,6 +45,8 @@ namespace Uba_Engine
         public MenuItemSelect OnSelect = DefaultOnSelect;
         public MenuItemSelect OnDeselect = DefaultOnSelect;
 
+        public TextSelect OnBack;
+
         /// <summary>
         /// Creates a new Menu Object
         /// </summary>
@@ -55,7 +57,8 @@ namespace Uba_Engine
         /// <param name="menuColor"> The default color of the menu items </param>
         /// <param name="scale"> The default scale of the menu items </param>
         /// <param name="alignment"> The alignment of items in the menu </param>
-        public Menu(Vector2 position, int spacing, bool isVerticle, SpriteFont font, Color menuColor, Vector2 scale, Align alignment)
+        /// <param name="onBack"> The delegate to call when going back from this menu </param>
+        public Menu(Vector2 position, int spacing, bool isVerticle, SpriteFont font, Color menuColor, Vector2 scale, Align alignment, TextSelect onBack)
         {
             MenuItems = new List<Text>();
             StartPosition = position;
@@ -65,6 +68,7 @@ namespace Uba_Engine
             MenuColor = menuColor;
             Alignment = alignment;
             Scale = scale;
+            OnBack = onBack;
         }
 
         /// <summary>

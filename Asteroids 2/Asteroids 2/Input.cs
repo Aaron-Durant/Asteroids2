@@ -8,54 +8,51 @@ using Uba_Engine;
 
 namespace Asteroids_2
 {
-    class Input
+    public partial class Game1
     {
-        public static void checkInput(Game1 g)
+        public void checkInput()
         {
             //Check for exit
-            InputManager inputM = g.inputM;
-            if (inputM.KeyPressed(Keys.Escape) || inputM.ButtonPressed(1, Buttons.Back)) g.engine.Exit();
+            if (inputM.KeyPressed(Keys.Escape) || inputM.ButtonPressed(1, Buttons.Back)) engine.Exit();
 
-            switch (g.gameState)
+            switch (gameState)
             {
                 case GameState.Initializing:
-                    if (g.setupM.SetupComplete)
-                    {
-                        for (int i = 1; i < 5; i++)
-                        {
-                            if (inputM.ButtonPressed(i, Buttons.A) || inputM.ButtonPressed(i, Buttons.Start))
-                            {
-                                g.engine.NewState = g.mainMenu;
-                                g.MasterController = i;
-                            }
-                        }
-                        if (inputM.KeyPressed(Keys.Enter))
-                            g.engine.NewState = g.mainMenu;
-                    }
+                    SetupInput();
                     break;
-                case GameState.Title:
-                    //if (inputM.keyDown(Keys.Right) || inputM.buttonDown(1, Buttons.LeftThumbstickRight)) g.s.velocity.X += 5;
-                    //else if (inputM.keyDown(Keys.Left) || inputM.buttonDown(1, Buttons.LeftThumbstickLeft)) g.s.velocity.X += -5;
-                    ////else g.s.velocity.X = 0;
-                    //if (inputM.keyDown(Keys.Up) || inputM.buttonDown(1, Buttons.LeftThumbstickUp)) g.s.velocity += RotationHelper.VelocityAtAngle(5, g.s);
-                    //else if (inputM.keyDown(Keys.Down) || inputM.buttonDown(1, Buttons.LeftThumbstickDown)) g.s.velocity.Y += 5;
-                    ////else g.s.velocity.Y = 0;
-                    
-
-                    if (inputM.KeyPressed(Keys.Up)) Menus.mainMenu.PreviousMenuItem();
-                    if (inputM.KeyPressed(Keys.Down)) Menus.mainMenu.NextMenuItem();
-
-                    if (inputM.KeyDown(Keys.D))
-                    {
-                        g.s.Rotation += 0.1f;
-                    }
-
-                    if (inputM.ButtonDown(1, Buttons.A) || inputM.KeyPressed(Keys.A))
-                    {
-                        g.s.Rotation -= 0.1f;
-                    }
+                case GameState.Menus:
+                    TitleInput();
                     break;
             }
+        }
+
+        private  void SetupInput()
+        {
+            if (setupM.SetupComplete)
+            {
+                for (int i = 1; i < 5; i++)
+                {
+                    if (inputM.ButtonPressed(i, Buttons.A) || inputM.ButtonPressed(i, Buttons.Start))
+                    {
+                        engine.NewState = mainMenu;
+                        MasterController = i;
+                    }
+                }
+                if (inputM.KeyPressed(Keys.Enter))
+                    engine.NewState = mainMenu;
+            }
+        }
+
+        private void TitleInput()
+        {
+            if (inputM.KeyPressed(Keys.Up) || inputM.ButtonPressed(MasterController, Buttons.LeftThumbstickUp))
+                menuM.CurrentMenu.PreviousMenuItem();
+            if (inputM.KeyPressed(Keys.Down) || inputM.ButtonPressed(MasterController, Buttons.LeftThumbstickDown))
+                menuM.CurrentMenu.NextMenuItem();
+            if (inputM.KeyPressed(Keys.Back) || inputM.ButtonPressed(MasterController, Buttons.B))
+                menuM.CurrentMenu.OnBack();
+            if (inputM.KeyPressed(Keys.Enter) || inputM.ButtonPressed(MasterController, Buttons.A)) 
+                menuM.CurrentMenu.MenuItems[menuM.CurrentMenu.SelectedItem].OnSelect();
         }
     }
 }
