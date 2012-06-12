@@ -39,7 +39,9 @@ namespace Asteroids_2
                     }
                 }
                 if (inputM.KeyPressed(Keys.Enter))
+                {
                     engine.NewState = mainMenu;
+                }
             }
         }
 

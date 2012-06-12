@@ -26,7 +26,6 @@ namespace Asteroids_2
             if (!setupM.SetupComplete)
             {
                 setupM.AddSetupTask(CreateMenus);
-                fileM.AddFileOperation(new FileAsset("Hello", XMLMethod.readXML, "Hello"));
                 setupM.Start();
             }
         }

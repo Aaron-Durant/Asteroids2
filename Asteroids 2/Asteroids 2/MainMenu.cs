@@ -22,6 +22,8 @@ namespace Asteroids_2
         {
             engine.ClearAllAssets();
             gameState = GameState.Menus;
+            if (!Guide.IsVisible)
+            fileM.GetStorageDevice();
             menuM.CurrentMenu = Menus.MainMenu;
             menuM.ShowMenu(Menus.MainMenu, true);
         }
@@ -46,9 +48,10 @@ namespace Asteroids_2
 
         public void SinglePlayer()
         {
-            menuM.HideMenu(Menus.MainMenu);
-            menuM.CurrentMenu = Menus.SinglePlayerMenu;
-            menuM.ShowMenu(Menus.SinglePlayerMenu, true);
+            fileM.AddFileOperation(new FileAsset("Hello.xml", XMLMethod.writeXML, 5));
+            //menuM.HideMenu(Menus.MainMenu);
+            //menuM.CurrentMenu = Menus.SinglePlayerMenu;
+            //menuM.ShowMenu(Menus.SinglePlayerMenu, true);
         }
 
         public void Multiplayer()
@@ -140,4 +143,5 @@ namespace Asteroids_2
         }
 
     }
+
 }

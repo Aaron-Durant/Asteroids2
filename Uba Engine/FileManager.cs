@@ -41,7 +41,6 @@ namespace Uba_Engine
         {
             Root = rootDirectory;
             pendingOperations = new List<FileAsset>();
-            GetStorageDevice();
         }
 
         public void AddFileOperation(FileAsset fileAsset)
@@ -52,7 +51,11 @@ namespace Uba_Engine
 
         public void GetStorageDevice()
         {
-            StorageDevice.BeginShowSelector(PlayerIndex.One, SetStorage, (Object)"Get StorageDevice");
+            if (!Guide.IsVisible)
+            {
+                storageDevice = null;
+                StorageDevice.BeginShowSelector(PlayerIndex.One, SetStorage, (Object)"Get StorageDevice");
+            }
         }
 
         private void SetStorage(IAsyncResult result)
@@ -100,7 +103,7 @@ namespace Uba_Engine
             storageContainer = storageDevice.EndOpenContainer(ar);
             if (storageContainer != null)
             {
-                StreamWriter sw = new StreamWriter(storageContainer.CreateFile(pendingOperations[0].Filename))
+                StreamWriter sw = new StreamWriter(storageContainer.CreateFile(pendingOperations[0].Filename));
                 Serializer = new XmlSerializer(pendingOperations[0].Object.GetType());
                 Serializer.Serialize(sw, pendingOperations[0].Object);
                 sw.Close();

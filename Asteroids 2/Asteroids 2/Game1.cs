@@ -69,6 +69,8 @@ namespace Asteroids_2
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            Components.Add(new GamerServicesComponent(this));
+
         }
 
         /// <summary>
@@ -94,6 +96,7 @@ namespace Asteroids_2
             textM = new TextManager(this);
             // Initializes the menuManager object
             menuM = new MenuManager(this, textM);
+            // Initializes the fileManager object
             fileM = new FileManager("Asteroids 2");
             // Initializes the engine object
             engine = new Engine(this, eventM, menuM);
@@ -108,7 +111,6 @@ namespace Asteroids_2
             //// Set screen size 
             engine.SetScreen(screenSize.Width, screenSize.Height);
 
-            
 
             base.Initialize();
 
