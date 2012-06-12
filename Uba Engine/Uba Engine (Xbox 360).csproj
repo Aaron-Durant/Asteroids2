@@ -50,6 +50,8 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="EventManager.cs" />
+    <Compile Include="FileAsset.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InputManager.cs" />

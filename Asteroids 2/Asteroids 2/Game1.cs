@@ -47,9 +47,13 @@ namespace Asteroids_2
         /// </summary>
         public TextManager textM;
         /// <summary>
-        /// Holds the MenuManager object;
+        /// Holds the MenuManager object
         /// </summary>
         public MenuManager menuM;
+        /// <summary>
+        /// Holds the FileManager object
+        /// </summary>
+        public FileManager fileM;
         /// <summary>
         /// Rectangle holding the screen size
         /// </summary>
@@ -90,6 +94,7 @@ namespace Asteroids_2
             textM = new TextManager(this);
             // Initializes the menuManager object
             menuM = new MenuManager(this, textM);
+            fileM = new FileManager("Asteroids 2");
             // Initializes the engine object
             engine = new Engine(this, eventM, menuM);
 
