@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -17,20 +19,17 @@ namespace Asteroids_2
     {
         public int MasterController = 1;
 
-
         public void mainMenu()
         {
             engine.ClearAllAssets();
             gameState = GameState.Menus;
-            if (!Guide.IsVisible)
-            fileM.GetStorageDevice();
             menuM.CurrentMenu = Menus.MainMenu;
             menuM.ShowMenu(Menus.MainMenu, true);
         }
 
         public void CreateMainMenu()
         {
-            Menu menu = new Menu(new Vector2(200), 75, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, MainMenuBack);
+            Menu menu = new Menu(new Vector2(200), 85, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, MainMenuBack);
             menu.OnSelect = Menus.SelectText;
             menu.OnDeselect = Menus.DeselectText;
             menu.AddMenuItem(new Text("Single Player", SinglePlayer));
@@ -40,7 +39,7 @@ namespace Asteroids_2
             Menus.MainMenu = menu;
             menuM.AddMenu(Menus.MainMenu);
         }
-        
+
         public void MainMenuBack()
         {
             engine.NewState = setUp;
@@ -48,10 +47,9 @@ namespace Asteroids_2
 
         public void SinglePlayer()
         {
-            fileM.AddFileOperation(new FileAsset("Hello.xml", XMLMethod.writeXML, 5));
-            //menuM.HideMenu(Menus.MainMenu);
-            //menuM.CurrentMenu = Menus.SinglePlayerMenu;
-            //menuM.ShowMenu(Menus.SinglePlayerMenu, true);
+            menuM.HideMenu(Menus.MainMenu);
+            menuM.CurrentMenu = Menus.SinglePlayerMenu;
+            menuM.ShowMenu(Menus.SinglePlayerMenu, true);
         }
 
         public void Multiplayer()
@@ -70,7 +68,7 @@ namespace Asteroids_2
 
         public void CreateSinglePlayerMenu()
         {
-            Menu menu = new Menu(new Vector2(200), 75, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, SinglePlayerBack);
+            Menu menu = new Menu(new Vector2(200), 85, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, SinglePlayerBack);
             menu.OnSelect = Menus.SelectText;
             menu.OnDeselect = Menus.DeselectText;
             menu.AddMenuItem(new Text("Campaign", Campaign));
@@ -96,7 +94,7 @@ namespace Asteroids_2
 
         public void CreateMultiPlayerMenu()
         {
-            Menu menu = new Menu(new Vector2(200), 75, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, MultiPlayerBack);
+            Menu menu = new Menu(new Vector2(200), 85, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, MultiPlayerBack);
             menu.OnSelect = Menus.SelectText;
             menu.OnDeselect = Menus.DeselectText;
             menu.AddMenuItem(new Text("Co-op", Coop));
@@ -122,10 +120,11 @@ namespace Asteroids_2
 
         public void CreateOptionMenu()
         {
-            Menu menu = new Menu(new Vector2(200), 75, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, OptionBack);
+            Menu menu = new Menu(new Vector2(200), 85, true, GFX.sfTitle, Color.White, new Vector2(0.5f), Align.Left, OptionBack);
             menu.OnSelect = Menus.SelectText;
             menu.OnDeselect = Menus.DeselectText;
             menu.AddMenuItem(new Text("Graphics", Graphics));
+            menu.AddMenuItem(new Text("Sound", Sound));
             Menus.OptionsMenu = menu;
             menuM.AddMenu(Menus.OptionsMenu);
         }
@@ -139,9 +138,13 @@ namespace Asteroids_2
 
         public void Graphics()
         {
-            
+
         }
 
+        public void Sound()
+        {
+        }
     }
+
 
 }

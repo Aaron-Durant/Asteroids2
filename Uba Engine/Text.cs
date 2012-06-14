@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using System.Xml.Serialization;
 
 namespace Uba_Engine
 {
@@ -66,6 +66,10 @@ namespace Uba_Engine
         {
             this.text = text;
             OnSelect = onSelect;
+        }
+
+        private Text()
+        {
         }
     }
 }

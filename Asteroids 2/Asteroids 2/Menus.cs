@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -33,6 +35,15 @@ namespace Asteroids_2
             t.Scale = new Vector2(0.5f);
         }
 
+        public static void ReadMenu(Reader reader, Object menu)
+        {
+            if (reader.ReadPossible)
+            {
+                reader.Serializer = new XmlSerializer(typeof(Menu));
+                menu = (Menu)reader.Serializer.Deserialize(reader.sr);
+                reader.sr.Close();
+            }
+        }
 
     }
 

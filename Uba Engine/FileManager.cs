@@ -13,6 +13,31 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Uba_Engine
 {
+    public class Reader
+    {
+        /// <summary>
+        /// The location on the HDD to store files
+        /// </summary>
+        public StorageContainer storageContainer;
+        /// <summary>
+        /// The xml serializer for use
+        /// </summary>
+        public XmlSerializer Serializer;
+        /// <summary>
+        /// Is it possible to read from the file?
+        /// </summary>
+        public bool ReadPossible;
+        /// <summary>
+        /// The stream to read from
+        /// </summary>
+        public StreamReader sr;
+
+        public Reader(StorageContainer sc)
+        {
+            storageContainer = sc;
+        }
+    }
+
     public class FileManager
     {
         /// <summary>
@@ -27,14 +52,7 @@ namespace Uba_Engine
         /// The storage device used to save the file
         /// </summary>
         StorageDevice storageDevice;
-        /// <summary>
-        /// The location on the HDD to store files
-        /// </summary>
-        StorageContainer storageContainer;
-        /// <summary>
-        /// The xml serializer for use
-        /// </summary>
-        XmlSerializer Serializer;
+        
         
 
         public FileManager(String rootDirectory)
@@ -51,10 +69,9 @@ namespace Uba_Engine
 
         public void GetStorageDevice()
         {
-            if (!Guide.IsVisible)
+            if (!Guide.IsVisible && storageDevice == null)
             {
-                storageDevice = null;
-                StorageDevice.BeginShowSelector(PlayerIndex.One, SetStorage, (Object)"Get StorageDevice");
+                StorageDevice.BeginShowSelector(SetStorage, (Object)"Get StorageDevice");
             }
         }
 
@@ -92,6 +109,15 @@ namespace Uba_Engine
         private void Load(IAsyncResult ar)
         {
 
+            Reader reader = new Reader(storageDevice.EndOpenContainer(ar));
+            if (reader.storageContainer != null && reader.storageContainer.FileExists(pendingOperations[0].Filename))
+            {
+                reader.sr = new StreamReader(reader.storageContainer.OpenFile(pendingOperations[0].Filename, FileMode.Open, FileAccess.Read));
+                reader.ReadPossible = true;
+            }
+
+            pendingOperations[0].ReadMethod(reader, pendingOperations[0].Object);
+            
 
             pendingOperations.RemoveAt(0);
             NextOperation();
@@ -100,11 +126,11 @@ namespace Uba_Engine
 
         private void Save(IAsyncResult ar)
         {
-            storageContainer = storageDevice.EndOpenContainer(ar);
+            StorageContainer storageContainer = storageDevice.EndOpenContainer(ar);
             if (storageContainer != null)
             {
                 StreamWriter sw = new StreamWriter(storageContainer.CreateFile(pendingOperations[0].Filename));
-                Serializer = new XmlSerializer(pendingOperations[0].Object.GetType());
+                XmlSerializer Serializer = new XmlSerializer(pendingOperations[0].Object.GetType());
                 Serializer.Serialize(sw, pendingOperations[0].Object);
                 sw.Close();
                 storageContainer.Dispose();
@@ -113,5 +139,6 @@ namespace Uba_Engine
             pendingOperations.RemoveAt(0);
             NextOperation();
         }
+
     }
 }

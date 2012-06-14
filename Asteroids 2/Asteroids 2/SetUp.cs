@@ -25,6 +25,7 @@ namespace Asteroids_2
             // Add setup tasks here
             if (!setupM.SetupComplete)
             {
+                setupM.AddSetupTask(fileM.GetStorageDevice);
                 setupM.AddSetupTask(CreateMenus);
                 setupM.Start();
             }

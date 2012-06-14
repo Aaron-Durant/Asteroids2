@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -44,7 +45,6 @@ namespace Uba_Engine
         /// </summary>
         public MenuItemSelect OnSelect = DefaultOnSelect;
         public MenuItemSelect OnDeselect = DefaultOnSelect;
-
         public TextSelect OnBack;
 
         /// <summary>
@@ -69,6 +69,10 @@ namespace Uba_Engine
             Alignment = alignment;
             Scale = scale;
             OnBack = onBack;
+        }
+
+        private Menu()
+        {
         }
 
         /// <summary>

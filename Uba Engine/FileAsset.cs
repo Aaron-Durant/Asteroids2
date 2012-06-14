@@ -20,12 +20,24 @@ namespace Uba_Engine
         /// Should the FileManager read or write?
         /// </summary>
         internal XMLMethod Method;
+        /// <summary>
+        /// The method to use to read the file
+        /// </summary>
+        internal ReadDelegate ReadMethod;
 
         public FileAsset(String filename, XMLMethod method, Object obj)
         {
             Filename = filename;
             Object = obj;
             Method = method;
+        }
+
+        public FileAsset(String filename, XMLMethod method, object obj, ReadDelegate readDelegate)
+        {
+            Filename = filename;
+            Method = method;
+            Object = obj;
+            ReadMethod = readDelegate;
         }
     }
 
